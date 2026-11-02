@@ -1,0 +1,998 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f3f0e5">
+
+<title>Create your account — Connect the Dots</title>
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+
+<style>
+:root {
+    --cream: #f3f0e5;
+    --green: #244b3b;
+    --green2: #3e7058;
+    --ink: #1e3329;
+    --muted: #748176;
+    --maroon: #824b52;
+}
+
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    min-height: 100vh;
+    font-family: "DM Sans", sans-serif;
+    color: var(--ink);
+    background:
+        radial-gradient(circle at 10% 5%, rgba(190,211,184,.62), transparent 27rem),
+        radial-gradient(circle at 95% 85%, rgba(219,203,184,.58), transparent 27rem),
+        linear-gradient(135deg,#f6f3e9,#ecebdd);
+    display: grid;
+    place-items: center;
+    padding: 24px;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+.auth-wrap {
+    width: min(980px,100%);
+    min-height: 610px;
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    border-radius: 30px;
+    overflow: hidden;
+    border: 1px solid rgba(255,255,255,.9);
+    background: rgba(255,255,250,.56);
+    backdrop-filter: blur(25px);
+    box-shadow: 0 25px 80px rgba(35,62,43,.13);
+}
+
+.auth-side {
+    padding: 44px;
+    background: linear-gradient(145deg,#294f3d,#1d3c2d);
+    color: #f6f2e6;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    position: relative;
+    overflow: hidden;
+}
+
+.auth-side:after {
+    content: "";
+    position: absolute;
+    width: 370px;
+    height: 370px;
+    border: 1px solid rgba(255,255,255,.12);
+    border-radius: 50%;
+    right: -150px;
+    bottom: -145px;
+    box-shadow:
+        0 0 0 30px rgba(255,255,255,.025),
+        0 0 0 70px rgba(255,255,255,.02);
+}
+
+.brand {
+    font: 800 16px Manrope,sans-serif;
+    display: flex;
+    gap: 10px;
+    align-items: center;
+}
+
+.brand i {
+    width: 38px;
+    height: 38px;
+    border-radius: 13px;
+    display: grid;
+    place-items: center;
+    background: rgba(255,255,255,.13);
+}
+
+.side-content {
+    position: relative;
+    z-index: 1;
+}
+
+.eyebrow {
+    font-size: 10px;
+    letter-spacing: 1.8px;
+    text-transform: uppercase;
+    color: #d7b9ad;
+    font-weight: 800;
+    margin-bottom: 16px;
+}
+
+h1 {
+    font: 800 clamp(32px,4vw,48px)/1.08 Manrope,sans-serif;
+    letter-spacing: -2.3px;
+    margin: 0 0 17px;
+}
+
+.side-content p {
+    font-size: 12px;
+    line-height: 1.8;
+    color: rgba(246,242,230,.7);
+    max-width: 340px;
+}
+
+.side-foot {
+    font-size: 10px;
+    color: rgba(246,242,230,.55);
+    position: relative;
+    z-index: 1;
+}
+
+.auth-main {
+    padding: 48px clamp(25px,5vw,58px);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+}
+
+.back {
+    font-size: 11px;
+    color: var(--muted);
+    margin-bottom: 34px;
+    display: inline-flex;
+    gap: 8px;
+    align-items: center;
+}
+
+.back:hover {
+    color: var(--maroon);
+}
+
+h2 {
+    font: 800 27px Manrope,sans-serif;
+    letter-spacing: -1px;
+    margin: 0 0 8px;
+}
+
+.sub {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin: 0 0 25px;
+}
+
+label {
+    font-size: 10px;
+    font-weight: 700;
+    color: #526458;
+    display: block;
+    margin: 14px 0 7px;
+}
+
+.field {
+    width: 100%;
+    height: 45px;
+    border: 1px solid rgba(36,75,59,.15);
+    border-radius: 12px;
+    background: rgba(255,255,255,.62);
+    padding: 0 13px;
+    outline: none;
+    color: var(--ink);
+    font: 12px "DM Sans",sans-serif;
+    transition: .2s;
+}
+
+.field:focus {
+    border-color: #71947a;
+    box-shadow: 0 0 0 3px rgba(113,148,122,.13);
+}
+
+.password-wrap {
+    position: relative;
+}
+
+.password-wrap .field {
+    padding-right: 42px;
+}
+
+.toggle-pass {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: 0;
+    background: none;
+    color: #879489;
+    cursor: pointer;
+}
+
+.row-between {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 10px;
+    margin: 13px 0 18px;
+    font-size: 10px;
+    color: var(--muted);
+}
+
+.check {
+    display: flex;
+    align-items: center;
+    gap: 7px;
+}
+
+.check input {
+    accent-color: var(--green);
+}
+
+.text-link {
+    color: var(--maroon);
+    font-weight: 700;
+}
+
+.submit {
+    width: 100%;
+    min-height: 46px;
+    border: 0;
+    border-radius: 13px;
+    background: var(--green);
+    color: #fffdf3;
+    font-size: 11px;
+    font-weight: 800;
+    box-shadow: 0 8px 18px rgba(36,75,59,.16);
+    transition: .2s;
+    cursor: pointer;
+}
+
+.submit:hover {
+    background: #315f49;
+    transform: translateY(-1px);
+}
+
+.submit:disabled {
+    opacity: .65;
+    cursor: not-allowed;
+    transform: none;
+}
+
+.bottom {
+    font-size: 10px;
+    color: var(--muted);
+    text-align: center;
+    margin: 20px 0 0;
+}
+
+.notice {
+    display: none;
+    margin-top: 12px;
+    padding: 10px 12px;
+    border-radius: 10px;
+    background: #e5eee0;
+    color: var(--green);
+    font-size: 10px;
+    line-height: 1.5;
+}
+
+.notice.show {
+    display: block;
+}
+
+/* EMAIL VERIFICATION */
+
+.verify-panel {
+    display: none;
+    margin-top: 20px;
+    padding: 18px;
+    border: 1px solid #d8e2d6;
+    border-radius: 14px;
+    background: #f8faf5;
+}
+
+.verify-panel h3 {
+    margin: 0 0 8px;
+    font-size: 17px;
+    color: var(--green);
+}
+
+.verify-description {
+    font-size: 11px;
+    color: var(--muted);
+    line-height: 1.6;
+    margin-bottom: 14px;
+}
+
+#verificationCode {
+    text-align: center;
+    letter-spacing: 7px;
+    font-size: 18px;
+    font-weight: 700;
+}
+
+.resend-btn {
+    display: block;
+    margin: 14px auto 0;
+    border: 0;
+    background: none;
+    color: var(--maroon);
+    font-size: 11px;
+    font-weight: 700;
+    cursor: pointer;
+}
+
+.resend-btn:disabled {
+    opacity: .5;
+    cursor: not-allowed;
+}
+
+@media(max-width:720px) {
+    .auth-wrap {
+        grid-template-columns: 1fr;
+        max-width: 470px;
+    }
+
+    .auth-side {
+        min-height: 220px;
+        padding: 25px;
+    }
+
+    .auth-side h1 {
+        font-size: 30px;
+    }
+
+    .side-content p {
+        max-width: 100%;
+        font-size: 11px;
+    }
+
+    .side-foot {
+        margin-top: 24px;
+    }
+
+    .auth-main {
+        padding: 30px 25px;
+    }
+
+    .back {
+        margin-bottom: 24px;
+    }
+}
+</style>
+</head>
+
+<body>
+
+<main class="auth-wrap">
+
+    <!-- LEFT SIDE -->
+
+    <aside class="auth-side">
+
+        <a class="brand" href="index.html">
+            <i class="fa-solid fa-circle-nodes"></i>
+            connect the dots
+        </a>
+
+        <div class="side-content">
+
+            <div class="eyebrow">
+                Your curiosity belongs here
+            </div>
+
+            <h1>
+                Every new dot<br>
+                opens a door.
+            </h1>
+
+            <p>
+                Bring your skills, interests and ideas.
+                Discover the connections you didn't know
+                were waiting for you.
+            </p>
+
+        </div>
+
+        <div class="side-foot">
+            A space for curious minds. · 2026
+        </div>
+
+    </aside>
+
+
+    <!-- RIGHT SIDE -->
+
+    <section class="auth-main">
+
+        <a class="back" href="index.html">
+            <i class="fa-solid fa-arrow-left"></i>
+            Back to home
+        </a>
+
+        <h2>Create your account</h2>
+
+        <p class="sub">
+            Start with what makes you curious.
+            Your map grows from there.
+        </p>
+
+
+        <!-- SIGNUP FORM -->
+
+        <form id="authForm">
+
+            <label for="name">Your name</label>
+
+            <input
+                class="field"
+                id="name"
+                type="text"
+                placeholder="How should we call you?"
+                autocomplete="name"
+                minlength="2"
+                maxlength="80"
+                required
+            >
+
+
+            <label for="email">Email address</label>
+
+            <input
+                class="field"
+                id="email"
+                type="email"
+                placeholder="you@example.com"
+                autocomplete="email"
+                maxlength="254"
+                required
+            >
+
+
+            <label for="password">Password</label>
+
+            <div class="password-wrap">
+
+                <input
+                    class="field"
+                    id="password"
+                    type="password"
+                    placeholder="At least 10 characters"
+                    minlength="10"
+                    maxlength="128"
+                    autocomplete="new-password"
+                    pattern="(?=.*[a-z])(?=.*[A-Z])(?=.*[0-9])(?=.*[^A-Za-z0-9]).{10,128}"
+                    title="Use at least 10 characters with uppercase, lowercase, a number and a special character."
+                    required
+                >
+
+                <button
+                    class="toggle-pass"
+                    type="button"
+                    aria-label="Show password"
+                >
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+
+            </div>
+
+            <small style="display:block;margin-top:7px;color:#7b887e;font-size:9px;line-height:1.5">
+                Use 10+ characters, including uppercase, lowercase, a number and a special character.
+            </small>
+
+
+            <label for="confirm">Confirm password</label>
+
+            <div class="password-wrap">
+
+                <input
+                    class="field"
+                    id="confirm"
+                    type="password"
+                    placeholder="Enter your password again"
+                    minlength="10"
+                    maxlength="128"
+                    required
+                >
+
+                <button
+                    class="toggle-pass"
+                    type="button"
+                    aria-label="Show password"
+                >
+                    <i class="fa-regular fa-eye"></i>
+                </button>
+
+            </div>
+
+
+            <div class="row-between">
+
+                <label class="check" style="margin:0">
+
+                    <input type="checkbox" required>
+
+                    I agree to the
+
+                    <a class="text-link" href="#">terms</a>
+
+                    and
+
+                    <a class="text-link" href="#">privacy policy</a>
+
+                </label>
+
+            </div>
+
+
+            <button class="submit" type="submit">
+                Create account
+                <i class="fa-solid fa-arrow-right" style="margin-left:7px"></i>
+            </button>
+
+            <div class="notice" id="notice"></div>
+
+        </form>
+
+
+        <!-- EMAIL VERIFICATION PANEL -->
+
+        <div class="verify-panel" id="verifyPanel">
+
+            <h3>Verify your email</h3>
+
+            <p class="verify-description">
+                Enter the 6-digit verification code sent to your email.
+            </p>
+
+            <label for="verificationCode">
+                Verification code
+            </label>
+
+            <input
+                class="field"
+                id="verificationCode"
+                type="text"
+                inputmode="numeric"
+                maxlength="6"
+                pattern="[0-9]{6}"
+                placeholder="000000"
+                autocomplete="one-time-code"
+            >
+
+            <button
+                type="button"
+                class="submit"
+                id="verifyEmailBtn"
+                style="margin-top:12px"
+            >
+                Verify email
+            </button>
+
+            <button
+                type="button"
+                class="resend-btn"
+                id="resendCodeBtn"
+            >
+                Resend verification code
+            </button>
+
+        </div>
+
+
+        <p class="bottom">
+            Already have an account?
+            <a class="text-link" href="signin.html">Sign in</a>
+        </p>
+
+    </section>
+
+</main>
+
+
+<script>
+
+// =====================================
+// CONFIGURATION
+// =====================================
+
+const API = 'http://127.0.0.1:8000';
+
+const notice = document.getElementById('notice');
+
+const form = document.getElementById('authForm');
+
+const verifyPanel = document.getElementById('verifyPanel');
+
+let pendingEmail = '';
+let resendCooldownTimer = null;
+
+
+// =====================================
+// NOTIFICATION FUNCTION
+// =====================================
+
+function showNotice(message, isError = false) {
+
+    notice.textContent = message;
+
+    notice.classList.add('show');
+
+    notice.style.background = isError
+        ? '#f8e6e3'
+        : '#e5eee0';
+
+    notice.style.color = isError
+        ? '#8b3f3f'
+        : '#244b3b';
+}
+
+function startResendCooldown(seconds = 60) {
+    const button = document.getElementById('resendCodeBtn');
+    let remaining = Math.max(1, Math.ceil(seconds));
+
+    if (resendCooldownTimer !== null) {
+        clearInterval(resendCooldownTimer);
+    }
+
+    button.disabled = true;
+    button.textContent = `Resend code in ${remaining}s`;
+    resendCooldownTimer = setInterval(() => {
+        remaining -= 1;
+
+        if (remaining <= 0) {
+            clearInterval(resendCooldownTimer);
+            resendCooldownTimer = null;
+            button.disabled = false;
+            button.textContent = 'Resend verification code';
+        } else {
+            button.textContent = `Resend code in ${remaining}s`;
+        }
+    }, 1000);
+}
+
+
+// =====================================
+// API REQUEST FUNCTION
+// =====================================
+
+async function post(path, payload) {
+
+    let response;
+
+    try {
+
+        response = await fetch(API + path, {
+
+            method: 'POST',
+
+            headers: {
+                'Content-Type': 'application/json'
+            },
+
+            body: JSON.stringify(payload)
+
+        });
+
+    } catch (err) {
+
+        const error = new Error(
+            'Could not connect to the server. Check your connection and try again.'
+        );
+        error.status = 0;
+        throw error;
+    }
+
+
+    const data = await response.json().catch(() => ({}));
+
+
+    if (!response.ok) {
+
+        const detail = data && (data.detail || data.message);
+        let message = 'Request failed.';
+
+        if (typeof detail === 'string') {
+            message = detail;
+        } else if (Array.isArray(detail)) {
+            message = detail.map(item => {
+                if (typeof item === 'string') {
+                    return item;
+                }
+                return item && typeof item.msg === 'string'
+                    ? item.msg
+                    : JSON.stringify(item);
+            }).join(' ');
+        } else if (detail && typeof detail === 'object') {
+            message = detail.message || detail.msg || JSON.stringify(detail);
+        }
+
+        const error = new Error(message);
+
+        error.status = response.status;
+
+        throw error;
+    }
+
+    return data;
+}
+
+
+// =====================================
+// SHOW / HIDE PASSWORD
+// =====================================
+
+document.querySelectorAll('.toggle-pass').forEach(btn => {
+
+    btn.addEventListener('click', () => {
+
+        const input = btn.parentElement.querySelector('input');
+
+        input.type = input.type === 'password'
+            ? 'text'
+            : 'password';
+
+        btn.innerHTML = input.type === 'password'
+            ? '<i class="fa-regular fa-eye"></i>'
+            : '<i class="fa-regular fa-eye-slash"></i>';
+
+    });
+
+});
+
+
+// =====================================
+// REGISTER ACCOUNT
+// =====================================
+
+form.addEventListener('submit', async e => {
+
+    e.preventDefault();
+
+    const password = document.getElementById('password').value;
+
+    const confirm = document.getElementById('confirm').value;
+
+
+    // Password confirmation
+
+    if (password !== confirm) {
+
+        showNotice('Your passwords do not match.', true);
+
+        return;
+    }
+
+
+    const button = form.querySelector('.submit');
+
+    button.disabled = true;
+
+    button.textContent = 'Sending verification code...';
+
+
+    try {
+
+        const data = await post('/api/auth/register', {
+
+            name: document.getElementById('name').value.trim(),
+
+            email: document.getElementById('email').value.trim(),
+
+            password: password
+
+        });
+
+
+        // Save email
+
+        pendingEmail = data.email ||
+            document.getElementById('email').value.trim();
+
+
+        document.getElementById('email').value = pendingEmail;
+
+
+        // Show verification panel
+
+        verifyPanel.style.display = 'block';
+
+        document.getElementById('verificationCode').focus();
+
+
+        showNotice(
+            data.message || 'Verification code sent. Check your inbox.'
+        );
+
+        button.textContent = 'Code sent';
+
+
+    } catch (err) {
+
+
+        // Existing unverified account
+
+        if (
+            err.status === 409 &&
+            /unverified|not verified|pending/i.test(err.message)
+        ) {
+
+            pendingEmail = document.getElementById('email').value.trim();
+
+            verifyPanel.style.display = 'block';
+
+            document.getElementById('verificationCode').focus();
+
+            showNotice(
+                'Your account already exists but is not verified. Click Resend verification code to get a new OTP.'
+            );
+
+        } else {
+
+            showNotice(err.message, true);
+
+        }
+
+
+    } finally {
+
+        button.disabled = false;
+
+        if (button.textContent !== 'Code sent') {
+            button.innerHTML =
+                'Create account <i class="fa-solid fa-arrow-right" style="margin-left:7px"></i>';
+        }
+
+    }
+
+});
+
+
+// =====================================
+// VERIFY EMAIL
+// =====================================
+
+document.getElementById('verifyEmailBtn').addEventListener('click', async () => {
+
+    const code = document.getElementById('verificationCode').value.trim();
+
+
+    // Check OTP format
+
+    if (!/^\d{6}$/.test(code)) {
+
+        showNotice(
+            'Enter the 6-digit code from your email.',
+            true
+        );
+
+        return;
+    }
+
+
+    const button = document.getElementById('verifyEmailBtn');
+
+    button.disabled = true;
+
+    button.textContent = 'Verifying...';
+
+
+    try {
+
+        const data = await post('/api/auth/verify-email', {
+
+            email: pendingEmail ||
+                document.getElementById('email').value.trim(),
+
+            code: code
+
+        });
+
+
+        // Save login information
+
+        localStorage.setItem(
+            'ctd_access_token',
+            data.access_token
+        );
+
+        localStorage.setItem(
+            'ctd_user',
+            JSON.stringify(data.user)
+        );
+
+
+        showNotice('Email verified successfully!');
+
+        window.location.href = 'workspace.html';
+
+
+    } catch (err) {
+
+        showNotice(err.message, true);
+
+        button.disabled = false;
+
+        button.textContent = 'Verify email';
+
+    }
+
+});
+
+
+// =====================================
+// RESEND VERIFICATION CODE
+// =====================================
+
+document.getElementById('resendCodeBtn').addEventListener('click', async () => {
+
+    const button = document.getElementById('resendCodeBtn');
+
+
+    const email = pendingEmail ||
+        document.getElementById('email').value.trim();
+
+
+    // Check email
+
+    if (!email) {
+
+        showNotice('Please enter your email address.', true);
+
+        return;
+    }
+
+
+    button.disabled = true;
+
+    button.textContent = 'Sending new code...';
+
+
+    try {
+
+        const data = await post('/api/auth/resend-verification', {
+
+            email: email
+
+        });
+
+        startResendCooldown();
+
+        showNotice(
+            data.message ||
+            'If the account is pending, a new verification code has been sent.'
+        );
+
+
+    } catch (err) {
+
+        showNotice(err.message, true);
+
+        if (err.status === 429) {
+            const wait = err.message.match(/wait (\d+) seconds/i);
+            if (wait) {
+                startResendCooldown(Number(wait[1]));
+            }
+        }
+
+    } finally {
+
+        if (resendCooldownTimer === null) {
+            button.disabled = false;
+            button.textContent = 'Resend verification code';
+        }
+
+    }
+
+});
+
+</script>
+
+</body>
+</html>

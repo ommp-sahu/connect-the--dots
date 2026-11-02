@@ -1,0 +1,52 @@
+<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><meta name="theme-color" content="#f3f0e5"><title>Welcome back — Connect the Dots</title><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css"><style>
+:root{--cream:#f3f0e5;--green:#244b3b;--green2:#3e7058;--ink:#1e3329;--muted:#748176;--maroon:#824b52}
+*{box-sizing:border-box}body{margin:0;min-height:100vh;font-family:"DM Sans",sans-serif;color:var(--ink);background:radial-gradient(circle at 10% 5%,rgba(190,211,184,.62),transparent 27rem),radial-gradient(circle at 95% 85%,rgba(219,203,184,.58),transparent 27rem),linear-gradient(135deg,#f6f3e9,#ecebdd);display:grid;place-items:center;padding:24px}
+a{color:inherit;text-decoration:none}.auth-wrap{width:min(980px,100%);min-height:610px;display:grid;grid-template-columns:1fr 1fr;border-radius:30px;overflow:hidden;border:1px solid rgba(255,255,255,.9);background:rgba(255,255,250,.56);backdrop-filter:blur(25px);box-shadow:0 25px 80px rgba(35,62,43,.13)}
+.auth-side{padding:44px;background:linear-gradient(145deg,#294f3d,#1d3c2d);color:#f6f2e6;display:flex;flex-direction:column;justify-content:space-between;position:relative;overflow:hidden}
+.auth-side:after{content:"";position:absolute;width:370px;height:370px;border:1px solid rgba(255,255,255,.12);border-radius:50%;right:-150px;bottom:-145px;box-shadow:0 0 0 30px rgba(255,255,255,.025),0 0 0 70px rgba(255,255,255,.02)}
+.brand{font:800 16px Manrope,sans-serif;display:flex;gap:10px;align-items:center}.brand i{width:38px;height:38px;border-radius:13px;display:grid;place-items:center;background:rgba(255,255,255,.13)}
+.side-content{position:relative;z-index:1}.eyebrow{font-size:10px;letter-spacing:1.8px;text-transform:uppercase;color:#d7b9ad;font-weight:800;margin-bottom:16px}h1{font:800 clamp(32px,4vw,48px)/1.08 Manrope,sans-serif;letter-spacing:-2.3px;margin:0 0 17px}.side-content p{font-size:12px;line-height:1.8;color:rgba(246,242,230,.7);max-width:340px}.side-foot{font-size:10px;color:rgba(246,242,230,.55);position:relative;z-index:1}
+.auth-main{padding:48px clamp(25px,5vw,58px);display:flex;flex-direction:column;justify-content:center}.back{font-size:11px;color:var(--muted);margin-bottom:34px;display:inline-flex;gap:8px;align-items:center}.back:hover{color:var(--maroon)}
+h2{font:800 27px Manrope,sans-serif;letter-spacing:-1px;margin:0 0 8px}.sub{font-size:11px;color:var(--muted);line-height:1.6;margin:0 0 25px}
+
+
+label{font-size:10px;font-weight:700;color:#526458;display:block;margin:14px 0 7px}.field{width:100%;height:45px;border:1px solid rgba(36,75,59,.15);border-radius:12px;background:rgba(255,255,255,.62);padding:0 13px;outline:none;color:var(--ink);font:12px "DM Sans",sans-serif;transition:.2s}.field:focus{border-color:#71947a;box-shadow:0 0 0 3px rgba(113,148,122,.13)}
+.password-wrap{position:relative}.password-wrap .field{padding-right:42px}.toggle-pass{position:absolute;right:12px;top:50%;transform:translateY(-50%);border:0;background:none;color:#879489}
+.row-between{display:flex;align-items:center;justify-content:space-between;gap:10px;margin:13px 0 18px;font-size:10px;color:var(--muted)}.check{display:flex;align-items:center;gap:7px}.check input{accent-color:var(--green)}.text-link{color:var(--maroon);font-weight:700}
+.submit{width:100%;height:46px;border:0;border-radius:13px;background:var(--green);color:#fffdf3;font-size:11px;font-weight:800;box-shadow:0 8px 18px rgba(36,75,59,.16);transition:.2s}.submit:hover{background:#315f49;transform:translateY(-1px)}
+.bottom{font-size:10px;color:var(--muted);text-align:center;margin:20px 0 0}.notice{display:none;margin-top:12px;padding:10px 12px;border-radius:10px;background:#e5eee0;color:var(--green);font-size:10px;line-height:1.5}.notice.show{display:block}
+@media(max-width:720px){.auth-wrap{grid-template-columns:1fr;max-width:470px}.auth-side{min-height:220px;padding:25px}.auth-side h1{font-size:30px}.side-content p{max-width:100%;font-size:11px}.side-foot{margin-top:24px}.auth-main{padding:30px 25px}.back{margin-bottom:24px}}
+</style></head><body><main class="auth-wrap"><aside class="auth-side"><a class="brand" href="index.html"><i class="fa-solid fa-circle-nodes"></i> connect the dots</a><div class="side-content"><div class="eyebrow">Your curiosity belongs here</div><h1>Every new dot<br>opens a door.</h1><p>Bring your skills, interests and ideas. Discover the connections you didn't know were waiting for you.</p></div><div class="side-foot">A space for curious minds. · 2026</div></aside><section class="auth-main"><a class="back" href="index.html"><i class="fa-solid fa-arrow-left"></i> Back to home</a><h2>Welcome back</h2><p class="sub">Sign in to continue exploring your connections.</p><form id="authForm"><label for="email">Email address</label><input class="field" id="email" type="email" placeholder="you@example.com" autocomplete="email" maxlength="254" required><label for="password">Password</label><div class="password-wrap"><input class="field" id="password" type="password" placeholder="Your password" minlength="1" maxlength="128" autocomplete="current-password" required><button class="toggle-pass" type="button" aria-label="Show password"><i class="fa-regular fa-eye"></i></button></div><div class="row-between"><label class="check" style="margin:0"><input type="checkbox"> Remember me</label><a class="text-link" href="#" id="forgotLink">Forgot password?</a></div><button class="submit" type="submit">Sign in <i class="fa-solid fa-arrow-right" style="margin-left:7px"></i></button><div class="notice" id="notice"></div></form><p class="bottom">New to Connect the Dots? <a class="text-link" href="signup.html">Create an account</a></p></section></main><script>
+
+const API='http://127.0.0.1:8000';
+const notice=document.getElementById('notice');
+function showNotice(message,isError=false){
+ notice.textContent=message;notice.classList.add('show');
+ notice.style.background=isError?'#f8e6e3':'#e5eee0';
+ notice.style.color=isError?'#8b3f3f':'#244b3b';
+}
+document.querySelectorAll('.toggle-pass').forEach(btn=>btn.addEventListener('click',()=>{
+ const input=btn.parentElement.querySelector('input');
+ input.type=input.type==='password'?'text':'password';
+ btn.innerHTML=input.type==='password'?'<i class="fa-regular fa-eye"></i>':'<i class="fa-regular fa-eye-slash"></i>';
+}));
+document.getElementById('authForm').addEventListener('submit',async e=>{
+ e.preventDefault();
+ const button=e.currentTarget.querySelector('.submit');button.disabled=true;button.textContent='Signing in…';
+ try{
+  const response=await fetch(API+'/api/auth/login',{
+   method:'POST',headers:{'Content-Type':'application/json'},
+   body:JSON.stringify({email:document.getElementById('email').value.trim(),password:document.getElementById('password').value})
+  });
+  const data=await response.json();
+  if(!response.ok)throw new Error(data.detail||'Could not sign in.');
+  localStorage.setItem('ctd_access_token',data.access_token);
+  localStorage.setItem('ctd_user',JSON.stringify(data.user));
+  window.location.href='workspace.html';
+ }catch(err){showNotice(err.message,true);}
+ finally{button.disabled=false;button.innerHTML='Sign in <i class="fa-solid fa-arrow-right" style="margin-left:7px"></i>';}
+});
+const forgot=document.getElementById('forgotLink');
+if(forgot)forgot.addEventListener('click',e=>{e.preventDefault();showNotice('Password reset is not available yet. We will add it later.',true)});
+
+</script></body></html>

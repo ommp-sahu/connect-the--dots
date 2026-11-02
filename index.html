@@ -1,0 +1,636 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<meta name="theme-color" content="#f3f0e5">
+<title>Connect the Dots — Possibility is connected</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{
+ --cream:#f3f0e5;--cream2:#e9e7d8;--green:#244b3b;--green2:#3e7058;--green3:#71947a;
+ --mint:#dce8d9;--ink:#1e3329;--muted:#748176;--maroon:#824b52;--line:rgba(36,75,59,.13);
+ --glass:rgba(255,255,249,.58);--glass2:rgba(255,255,250,.78);--shadow:0 20px 60px rgba(35,62,43,.10);
+ --radius:26px;
+}
+*{box-sizing:border-box}
+html{scroll-behavior:smooth;scroll-padding-top:90px}
+body{margin:0;color:var(--ink);font-family:"DM Sans",sans-serif;background:
+ radial-gradient(circle at 7% 3%,rgba(190,211,184,.65),transparent 28rem),
+ radial-gradient(circle at 96% 17%,rgba(219,203,184,.55),transparent 28rem),
+ linear-gradient(135deg,#f6f3e9,#ecebdd 55%,#f5f1e7);overflow-x:hidden}
+a{color:inherit;text-decoration:none}
+button{font:inherit;cursor:pointer}
+.wrap{width:min(1240px,calc(100% - 48px));margin:auto}
+.glass{background:linear-gradient(145deg,rgba(255,255,250,.76),rgba(255,255,250,.38));border:1px solid rgba(255,255,255,.82);box-shadow:var(--shadow);backdrop-filter:blur(24px) saturate(145%);-webkit-backdrop-filter:blur(24px) saturate(145%);position:relative;overflow:hidden}
+.glass:before{content:"";position:absolute;inset:0;pointer-events:none;border-radius:inherit;box-shadow:inset 0 1px 0 rgba(255,255,255,.9)}
+.nav{height:78px;display:flex;align-items:center;justify-content:space-between;position:sticky;top:0;z-index:50;background:rgba(243,240,229,.68);backdrop-filter:blur(22px);border-bottom:1px solid rgba(36,75,59,.07)}
+.nav-inner{display:flex;align-items:center;justify-content:space-between;gap:24px}
+.brand{display:flex;align-items:center;gap:11px;font:800 16px Manrope,sans-serif;letter-spacing:-.5px}
+.brand-icon{width:39px;height:39px;border-radius:14px;display:grid;place-items:center;color:#f7f4e8;background:linear-gradient(145deg,#396b50,#1c3d2e);box-shadow:0 8px 18px rgba(36,75,59,.2)}
+.nav-links{display:flex;gap:28px;align-items:center;color:#66766a;font-size:12px;font-weight:600}
+.nav-links a{transition:.2s}.nav-links a:hover{color:var(--maroon)}
+.nav-cta,.btn-primary{border:0;border-radius:999px;padding:12px 18px;background:var(--green);color:#fffdf3;font-size:12px;font-weight:700;box-shadow:0 8px 20px rgba(36,75,59,.16);transition:.25s}
+.nav-cta:hover,.btn-primary:hover{background:#315f49;transform:translateY(-2px);box-shadow:0 12px 24px rgba(36,75,59,.2)}
+.menu-btn{display:none;border:1px solid var(--line);background:var(--glass);border-radius:12px;padding:10px 12px;color:var(--green)}
+.hero{padding:82px 0 62px;position:relative}
+.hero-grid{display:grid;grid-template-columns:1.04fr .96fr;gap:38px;align-items:center}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;color:var(--maroon);font-size:10px;font-weight:800;letter-spacing:1.8px;text-transform:uppercase;margin-bottom:20px}
+.pulse{width:7px;height:7px;border-radius:50%;background:#9a5b60;box-shadow:0 0 0 5px rgba(130,75,82,.10);animation:pulse 1.5s infinite}
+@keyframes pulse{50%{box-shadow:0 0 0 9px rgba(130,75,82,0)}}
+h1,h2,h3,p{margin-top:0}
+h1{font:800 clamp(43px,6.2vw,76px)/1.02 Manrope,sans-serif;letter-spacing:-4.5px;margin-bottom:22px;max-width:720px}
+h1 span{color:var(--green2);position:relative}
+.hero-copy{font-size:15px;line-height:1.8;color:var(--muted);max-width:520px;margin-bottom:28px}
+.hero-actions{display:flex;align-items:center;gap:17px;flex-wrap:wrap}
+.btn-primary{display:inline-flex;align-items:center;gap:10px;padding:15px 21px}
+.btn-quiet{font-size:12px;color:var(--green);font-weight:700;display:inline-flex;gap:9px;align-items:center}
+.btn-quiet i{color:var(--maroon)}
+.micro-proof{display:flex;align-items:center;gap:12px;margin-top:35px;color:#829084;font-size:10px}
+.avatar-stack{display:flex;padding-left:4px}
+.avatar-stack span{width:25px;height:25px;border-radius:50%;border:2px solid var(--cream);margin-left:-5px;background:#d5e1d0;display:grid;place-items:center;font-size:8px;color:var(--green)}
+.hero-visual{height:500px;border-radius:34px;background:linear-gradient(145deg,rgba(232,239,224,.82),rgba(255,255,249,.45));position:relative;box-shadow:0 25px 70px rgba(36,75,59,.12);border:1px solid rgba(255,255,255,.9);overflow:hidden}
+.hero-visual:after{content:"";position:absolute;inset:0;background:radial-gradient(circle at 50% 48%,rgba(255,255,255,.12),transparent 60%);pointer-events:none}
+#neuralCanvas{position:absolute;inset:0;width:100%;height:100%}
+.visual-label{position:absolute;z-index:3;padding:11px 14px;border-radius:15px;background:rgba(255,255,250,.76);border:1px solid rgba(255,255,255,.9);box-shadow:0 8px 25px rgba(36,75,59,.10);backdrop-filter:blur(14px);font-size:10px;font-weight:700;color:var(--green);animation:float 5s ease-in-out infinite}
+.visual-label small{display:block;color:var(--muted);font-size:8px;font-weight:500;margin-top:4px}
+.label-a{top:12%;left:8%}.label-b{top:18%;right:7%;animation-delay:-1.2s}.label-c{bottom:19%;left:7%;animation-delay:-2.2s}.label-d{bottom:12%;right:8%;animation-delay:-.7s}
+@keyframes float{50%{transform:translateY(-8px)}}
+.visual-center{position:absolute;left:50%;top:50%;transform:translate(-50%,-50%);z-index:2;width:116px;height:116px;border-radius:35px;background:linear-gradient(145deg,#37694e,#1d402f);display:grid;place-items:center;color:#f5f2e5;font-size:35px;box-shadow:0 20px 45px rgba(36,75,59,.28);border:1px solid rgba(255,255,255,.4)}
+.visual-caption{position:absolute;bottom:22px;left:0;right:0;text-align:center;color:#738276;font-size:9px;letter-spacing:1px;text-transform:uppercase;z-index:3}
+.scroll-cue{display:flex;align-items:center;gap:10px;color:#8b978b;font-size:9px;letter-spacing:1.6px;text-transform:uppercase;margin-top:46px}
+.scroll-line{width:42px;height:1px;background:var(--maroon)}
+.section{padding:76px 0}
+.section-head{display:flex;justify-content:space-between;align-items:flex-end;gap:25px;margin-bottom:27px}
+.kicker{font-size:10px;letter-spacing:1.7px;text-transform:uppercase;color:var(--maroon);font-weight:800;margin-bottom:12px}
+h2{font:800 clamp(30px,4vw,46px)/1.1 Manrope,sans-serif;letter-spacing:-2px;margin-bottom:10px}
+.section-desc{font-size:13px;line-height:1.7;color:var(--muted);max-width:460px;margin:0}
+.bento{display:grid;grid-template-columns:1.05fr 1fr 1fr;gap:16px}
+.tile{border-radius:var(--radius);padding:23px;min-height:210px}
+.tile h3{font:700 16px Manrope,sans-serif;letter-spacing:-.4px;margin:15px 0 8px}
+.tile p{font-size:11px;line-height:1.7;color:var(--muted);margin:0;max-width:310px}
+.tile-icon{width:39px;height:39px;border-radius:14px;background:#e4ecdf;color:var(--green);display:grid;place-items:center}
+.tile-maroon .tile-icon{background:#f0e3df;color:var(--maroon)}
+.tile-tall{grid-row:span 2;min-height:436px;background:linear-gradient(145deg,rgba(224,235,218,.88),rgba(255,255,249,.55))}
+.mini-network{height:220px;position:relative;margin-top:22px}
+.mini-network svg{width:100%;height:100%}
+.mini-node{position:absolute;width:43px;height:43px;border-radius:15px;display:grid;place-items:center;background:rgba(255,255,250,.86);color:var(--green);border:1px solid white;box-shadow:0 8px 20px rgba(36,75,59,.1);font-size:14px}
+.mn1{left:10%;top:20%}.mn2{right:14%;top:9%}.mn3{left:45%;top:43%;background:var(--green);color:#fff}.mn4{left:12%;bottom:7%}.mn5{right:9%;bottom:5%;color:var(--maroon)}
+.tile-wide{grid-column:span 2;display:flex;align-items:center;justify-content:space-between;gap:22px;min-height:210px;background:linear-gradient(115deg,rgba(255,255,250,.75),rgba(234,229,211,.58))}
+.wide-orbit{width:130px;height:130px;border-radius:50%;border:1px dashed rgba(62,112,88,.35);display:grid;place-items:center;flex-shrink:0;position:relative;color:var(--green);font-size:27px}
+.wide-orbit:before,.wide-orbit:after{content:"";position:absolute;border:1px solid rgba(62,112,88,.16);border-radius:50%;inset:13px}
+.wide-orbit:after{inset:-10px;border-style:dotted}
+.orbit-dot{position:absolute;width:10px;height:10px;border-radius:50%;background:var(--maroon);top:4px;right:20px;box-shadow:0 0 0 5px rgba(130,75,82,.1)}
+.steps{display:grid;grid-template-columns:repeat(4,1fr);gap:13px}
+.step{padding:22px;border-radius:22px;min-height:195px}
+.step-num{font:800 11px Manrope,sans-serif;color:var(--maroon);letter-spacing:1px}
+.step-icon{font-size:19px;color:var(--green);margin:21px 0 14px}
+.step h3{font:700 14px Manrope,sans-serif;margin-bottom:7px}
+.step p{font-size:10px;line-height:1.65;color:var(--muted);margin:0}
+.demo{display:grid;grid-template-columns:.82fr 1.18fr;gap:16px}
+.demo-intro,.demo-board{border-radius:var(--radius);padding:27px}
+.demo-intro{background:linear-gradient(145deg,#294f3d,#1d3c2d);color:#f6f2e6;min-height:330px}
+.demo-intro .kicker{color:#d7b9ad}
+.demo-intro h2{font-size:34px}
+.demo-intro p{font-size:12px;line-height:1.8;color:rgba(246,242,230,.7)}
+.demo-board{min-height:330px}
+.demo-tags{display:flex;flex-wrap:wrap;gap:8px;margin:17px 0 20px}
+.demo-tag{border:1px solid rgba(36,75,59,.13);background:rgba(222,233,216,.75);padding:9px 12px;border-radius:999px;font-size:10px;color:var(--green);font-weight:700}
+.demo-result{border-top:1px solid var(--line);padding-top:17px;display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.result{padding:13px;border-radius:15px;background:rgba(255,255,255,.48);border:1px solid rgba(36,75,59,.07)}
+.result i{color:var(--maroon);font-size:12px;margin-bottom:9px}
+.result strong{display:block;font:700 11px Manrope,sans-serif;margin-bottom:5px}
+.result small{font-size:9px;line-height:1.5;color:var(--muted)}
+.quote-band{margin:70px 0 20px;padding:35px;border-radius:28px;text-align:center;background:linear-gradient(120deg,rgba(224,235,218,.75),rgba(255,255,250,.56));border:1px solid rgba(255,255,255,.8)}
+.quote-mark{font:800 40px Manrope;color:var(--maroon);line-height:.7}
+.quote-band h2{font-size:clamp(24px,3.5vw,38px);max-width:780px;margin:15px auto 10px}
+.quote-band p{font-size:11px;color:var(--muted);margin:0}
+.footer{padding:48px 0 30px;border-top:1px solid rgba(36,75,59,.10);display:flex;justify-content:space-between;align-items:center;gap:20px;color:#829084;font-size:10px}
+.footer-brand{font:800 13px Manrope,sans-serif;color:var(--green)}
+.footer-links{display:flex;gap:20px}
+.footer-links a:hover{color:var(--maroon)}
+.reveal{opacity:0;transform:translateY(22px);transition:opacity .7s ease,transform .7s ease}
+.reveal.visible{opacity:1;transform:translateY(0)}
+
+.auth-nav{display:flex;align-items:center;gap:16px}.signin-link{font-size:11px;font-weight:700;color:var(--green)}
+.hero-visual{cursor:crosshair;touch-action:pan-y}
+.canvas-hint{position:absolute;z-index:5;left:50%;bottom:48px;transform:translateX(-50%);white-space:nowrap;padding:9px 13px;border-radius:999px;background:rgba(255,255,250,.72);border:1px solid rgba(255,255,255,.9);backdrop-filter:blur(12px);font-size:9px;color:var(--green);box-shadow:0 7px 20px rgba(36,75,59,.08)}
+.canvas-hint i{color:var(--maroon);margin-right:6px}
+.hero-visual:active{cursor:grabbing}
+@media(max-width:620px){.auth-nav{gap:10px}.signin-link{display:none}.canvas-hint{font-size:8px;bottom:42px}}
+
+@media(max-width:900px){.hero-grid{grid-template-columns:1fr}.hero-visual{height:430px}.bento{grid-template-columns:1fr 1fr}.tile-tall{grid-row:span 2}.tile-wide{grid-column:span 2}.steps{grid-template-columns:1fr 1fr}.demo{grid-template-columns:1fr}}
+@media(max-width:620px){.wrap{width:min(100% - 30px,500px)}.nav{height:68px}.nav-links{display:none;position:absolute;top:67px;left:15px;right:15px;padding:17px;border-radius:18px;background:rgba(250,249,240,.96);box-shadow:var(--shadow);flex-direction:column;align-items:flex-start;gap:17px}.nav-links.open{display:flex}.menu-btn{display:block}.nav-cta{padding:10px 13px;font-size:10px}.hero{padding:57px 0 35px}h1{letter-spacing:-2.8px}.hero-copy{font-size:13px}.hero-visual{height:365px;border-radius:25px}.visual-label{padding:8px 10px;font-size:9px}.visual-label small{font-size:7px}.visual-center{width:86px;height:86px;border-radius:27px;font-size:27px}.section{padding:53px 0}.section-head{display:block}.section-desc{margin-top:10px}.bento{grid-template-columns:1fr}.tile-tall,.tile-wide{grid-column:auto;grid-row:auto;min-height:220px}.tile-tall{min-height:400px}.tile-wide{min-height:190px}.steps{grid-template-columns:1fr 1fr;gap:9px}.step{padding:16px;min-height:185px}.demo-intro,.demo-board{padding:21px}.demo-result{grid-template-columns:1fr 1fr}.quote-band{padding:27px 18px;margin-top:48px}.footer{flex-direction:column;align-items:flex-start}.footer-links{flex-wrap:wrap}.scroll-cue{margin-top:32px}}
+@media(prefers-reduced-motion:reduce){*,*:before,*:after{scroll-behavior:auto!important;animation:none!important;transition:none!important}.reveal{opacity:1;transform:none}}
+
+/* Occasional full-screen neural artwork */
+#networkBurst{
+ position:fixed;inset:0;width:100%;height:100%;z-index:35;
+ pointer-events:none;opacity:0;transition:opacity .45s ease;
+ mix-blend-mode:multiply;
+}
+#networkBurst.active{opacity:1}
+@media(prefers-reduced-motion:reduce){
+ #networkBurst{display:none}
+}
+
+.visual-center{padding:0;cursor:pointer;transition:transform .25s ease,box-shadow .25s ease;isolation:isolate}
+.visual-center:hover{transform:translate(-50%,-50%) scale(1.07);box-shadow:0 22px 60px rgba(36,75,59,.42),0 0 0 9px rgba(113,148,122,.12)}
+.visual-center:focus-visible{outline:3px solid var(--maroon);outline-offset:7px}
+.visual-center:active{transform:translate(-50%,-50%) scale(.94)}
+.mind-button-hint{position:absolute;bottom:12px;font:800 8px/1 "DM Sans",sans-serif;letter-spacing:1.8px;color:rgba(245,242,229,.72)}
+body.mind-shake{animation:mindShake .42s linear 4}
+@keyframes mindShake{0%,100%{transform:translate3d(0,0,0)}15%{transform:translate3d(-5px,2px,0)}30%{transform:translate3d(5px,-2px,0)}45%{transform:translate3d(-4px,-3px,0)}60%{transform:translate3d(4px,3px,0)}75%{transform:translate3d(-2px,1px,0)}}
+@media(prefers-reduced-motion:reduce){body.mind-shake{animation:none}}
+
+#cursorSnake{position:fixed;inset:0;width:100%;height:100%;z-index:34;pointer-events:none;opacity:.9}
+#networkBurst{z-index:35}
+@media(prefers-reduced-motion:reduce){#cursorSnake{display:none}}
+
+.playground-card{border-radius:28px;padding:18px}
+.playground-toolbar{display:flex;align-items:center;justify-content:space-between;gap:15px;padding:5px 5px 16px}
+.playground-toolbar strong{display:block;font:800 11px Manrope,sans-serif;letter-spacing:1.5px;color:var(--green)}
+.playground-toolbar small{display:block;color:var(--muted);font-size:10px;margin-top:5px}
+.playground-actions{display:flex;gap:8px;flex-wrap:wrap}
+.studio-btn{border:1px solid rgba(36,75,59,.13);background:rgba(255,255,250,.78);color:var(--green);border-radius:999px;padding:10px 13px;font-size:10px;font-weight:700;transition:.2s}
+.studio-btn:hover{background:var(--green);color:#fff;transform:translateY(-2px)}
+.studio-clear{color:var(--maroon)}
+.drawing-wrap{height:340px;position:relative;border-radius:19px;overflow:hidden;background:#fffefa;border:1px solid rgba(36,75,59,.10);cursor:crosshair}
+#dotStudio{position:absolute;inset:0;width:100%;height:100%;touch-action:none}
+.studio-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:9px;color:#9aa69a;pointer-events:none;transition:opacity .2s}
+.studio-empty i{font-size:25px;color:#9ab19b}
+.studio-empty b{font:700 14px Manrope,sans-serif;color:#687b6d}
+.studio-empty span{font-size:10px}
+.studio-empty.hidden{opacity:0}
+.studio-foot{display:flex;justify-content:space-between;gap:10px;padding:13px 5px 2px;color:#89958a;font-size:9px}
+.studio-foot i{color:var(--maroon);margin-right:5px}
+#networkTravel{position:fixed;inset:0;width:100%;height:100%;z-index:120;pointer-events:none;opacity:0;background:radial-gradient(circle at center,rgba(245,243,232,.18),rgba(30,59,43,.06));transition:opacity .15s}
+#networkTravel.active{opacity:1}
+@media(max-width:650px){.playground-toolbar{align-items:flex-start;flex-direction:column}.drawing-wrap{height:300px}.studio-btn{padding:9px 11px}.studio-foot{font-size:8px}}
+
+</style>
+</head>
+<body><canvas id="networkTravel" aria-hidden="true"></canvas><canvas id="cursorSnake" aria-hidden="true"></canvas><canvas id="networkBurst" aria-hidden="true"></canvas>
+<nav class="nav">
+ <div class="wrap nav-inner">
+  <a class="brand" href="#home"><span class="brand-icon"><i class="fa-solid fa-circle-nodes"></i></span><span>connect the dots</span></a>
+  <div class="nav-links" id="navLinks"><a href="#idea">The idea</a><a href="#how">How it works</a><a href="#possibilities">Possibilities</a><a href="#about">About</a></div>
+  <div style="display:flex;align-items:center;gap:9px"><div class="auth-nav"><a class="signin-link" href="signin.html">Sign in</a><a class="nav-cta" href="signup.html">Get started <i class="fa-solid fa-arrow-right" style="margin-left:6px"></i></a></div><button class="menu-btn" id="menuBtn" aria-label="Open menu"><i class="fa-solid fa-bars"></i></button></div>
+ </div>
+</nav>
+
+<main id="home">
+<section class="hero">
+ <div class="wrap hero-grid">
+  <div class="reveal">
+   <div class="eyebrow"><span class="pulse"></span> A new way to discover what's possible</div>
+   <h1>One thought can lead to <span>somewhere unexpected.</span></h1>
+   <p class="hero-copy">You bring the dots — a skill, a hobby, a curiosity, a dream. Our AI explores the connections between them and suggests paths you may never have thought to take. You stay in control of where you go next.</p>
+   <div class="hero-actions"><a class="btn-primary" href="#how">See how it connects <i class="fa-solid fa-arrow-right"></i></a><a class="btn-quiet" href="#idea"><i class="fa-regular fa-circle-play"></i> Discover the idea</a></div>
+   <div class="micro-proof"><div class="avatar-stack"><span><i class="fa-solid fa-code"></i></span><span><i class="fa-solid fa-person-running"></i></span><span><i class="fa-solid fa-camera"></i></span></div><span>For curious minds, not predefined paths.</span></div>
+   <div class="scroll-cue"><span class="scroll-line"></span> Keep exploring <i class="fa-solid fa-arrow-down"></i></div>
+  </div>
+  <div class="hero-visual reveal" aria-label="Animated neural network illustration">
+   <canvas id="neuralCanvas"></canvas>
+   <div class="visual-label label-a"><i class="fa-solid fa-code"></i> Python<small>A skill you know</small></div>
+   <div class="visual-label label-b"><i class="fa-solid fa-person-running"></i> Running<small>An interest you follow</small></div>
+   <div class="visual-label label-c"><i class="fa-solid fa-dumbbell"></i> Strength<small>A dot you could add</small></div>
+   <div class="visual-label label-d"><i class="fa-solid fa-trophy"></i> Sports tech<small>A path you might discover</small></div>
+   <button class="visual-center" id="mindBurstButton" type="button" aria-label="Activate neural network burst" title="Click to unleash a neural burst"><i class="fa-solid fa-brain"></i><span class="mind-button-hint">EXPLORE</span></button>
+   <div class="canvas-hint"><i class="fa-solid fa-hand-pointer"></i> Drag the dots · make your own connections</div><div class="visual-caption">Ideas in motion · possibilities in every direction</div>
+  </div>
+ </div>
+</section>
+
+
+<section class="section" id="playground">
+ <div class="wrap">
+  <div class="section-head reveal">
+   <div><div class="kicker">Make something unexpected</div><h2>Your space.<br>Your imagination.</h2></div>
+   <p class="section-desc">Start with an empty canvas. Place dots, connect them, and turn a few clicks into your own constellation.</p>
+  </div>
+  <div class="playground-card glass reveal">
+   <div class="playground-toolbar">
+    <div><strong>THE DOT STUDIO</strong><small>Click to place dots · drag between dots to connect</small></div>
+    <div class="playground-actions">
+     <button type="button" class="studio-btn" id="randomPattern"><i class="fa-solid fa-wand-magic-sparkles"></i> Surprise me</button>
+     <button type="button" class="studio-btn" id="undoDot"><i class="fa-solid fa-rotate-left"></i> Undo</button>
+     <button type="button" class="studio-btn studio-clear" id="clearDots"><i class="fa-solid fa-eraser"></i> Clear</button>
+    </div>
+   </div>
+   <div class="drawing-wrap">
+    <canvas id="dotStudio" aria-label="Interactive drawing canvas. Click to add dots and drag between dots to connect them."></canvas>
+    <div class="studio-empty" id="studioEmpty"><i class="fa-solid fa-sparkles"></i><b>A blank page of possibilities</b><span>Click anywhere to place your first dot</span></div>
+   </div>
+   <div class="studio-foot"><span><i class="fa-solid fa-circle-info"></i> Your drawing stays in this session</span><span id="dotCounter">0 dots · 0 connections</span></div>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="idea">
+ <div class="wrap">
+  <div class="section-head reveal"><div><div class="kicker">01 / The idea</div><h2>Your world is more connected<br>than it looks.</h2></div><p class="section-desc">Most platforms ask what you want to become, then hand you a fixed roadmap. We start somewhere else: with what already makes you curious.</p></div>
+  <div class="bento">
+   <article class="tile tile-tall glass reveal">
+    <div class="tile-icon"><i class="fa-solid fa-diagram-project"></i></div><h3>See the invisible links.</h3><p>A sport can connect to science. A hobby can lead to a skill. A skill can unlock a new kind of work. The interesting part is often between the things you already know.</p>
+    <div class="mini-network">
+     <svg viewBox="0 0 300 210" fill="none"><path d="M43 52L145 105L252 38M145 105L58 177M145 105L246 174M43 52L58 177M252 38L246 174" stroke="#71947a" stroke-width="1.5" stroke-dasharray="4 5"/><path d="M43 52L145 105L246 174" stroke="#824b52" stroke-width="2" opacity=".5"/></svg>
+     <span class="mini-node mn1"><i class="fa-solid fa-table-tennis-paddle-ball"></i></span><span class="mini-node mn2"><i class="fa-solid fa-code"></i></span><span class="mini-node mn3"><i class="fa-solid fa-brain"></i></span><span class="mini-node mn4"><i class="fa-solid fa-person-running"></i></span><span class="mini-node mn5"><i class="fa-solid fa-chart-line"></i></span>
+    </div>
+   </article>
+   <article class="tile glass reveal"><div class="tile-icon"><i class="fa-solid fa-wand-magic-sparkles"></i></div><h3>AI that opens doors.</h3><p>It interprets what you enter, looks for meaningful relationships and offers fresh directions — not orders.</p></article>
+   <article class="tile glass tile-maroon reveal"><div class="tile-icon"><i class="fa-solid fa-compass"></i></div><h3>You choose the route.</h3><p>Accept a suggestion, ignore it, or add a new dot. Your curiosity sets the direction at every step.</p></article>
+   <article class="tile tile-wide glass reveal"><div><div class="tile-icon"><i class="fa-solid fa-seedling"></i></div><h3>Small dots. Unexpected futures.</h3><p>Connect what you know with what you love — and discover what those combinations could make possible.</p></div><div class="wide-orbit"><i class="fa-solid fa-circle-nodes"></i><span class="orbit-dot"></span></div></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="how">
+ <div class="wrap">
+  <div class="section-head reveal"><div><div class="kicker">02 / The experience</div><h2>From one little dot<br>to a whole new direction.</h2></div><p class="section-desc">A continuous loop of curiosity. Each new idea can change the picture and reveal connections that weren't visible before.</p></div>
+  <div class="steps">
+   <article class="step glass reveal"><div class="step-num">STEP 01</div><div class="step-icon"><i class="fa-solid fa-pen-to-square"></i></div><h3>Drop in anything</h3><p>Type a skill, interest, hobby, subject or ambition. No category is too unusual.</p></article>
+   <article class="step glass reveal"><div class="step-num">STEP 02</div><div class="step-icon"><i class="fa-solid fa-brain"></i></div><h3>AI finds patterns</h3><p>The AI looks beyond exact matches to explore related ideas, bridges and combinations.</p></article>
+   <article class="step glass reveal"><div class="step-num">STEP 03</div><div class="step-icon"><i class="fa-solid fa-sparkles"></i></div><h3>New dots appear</h3><p>Discover useful skills, missing connections, projects or directions you could explore.</p></article>
+   <article class="step glass reveal"><div class="step-num">STEP 04</div><div class="step-icon"><i class="fa-solid fa-route"></i></div><h3>You make it yours</h3><p>Choose what feels interesting. Add it to your map and let the next discovery unfold.</p></article>
+  </div>
+ </div>
+</section>
+
+<section class="section" id="possibilities">
+ <div class="wrap">
+  <div class="section-head reveal"><div><div class="kicker">03 / A glimpse of discovery</div><h2>What could your dots<br>become together?</h2></div><p class="section-desc">A few inputs can open several doors. These are starting points to explore, not promises or prescribed outcomes.</p></div>
+  <div class="demo reveal">
+   <div class="demo-intro"><div class="kicker">A simple example</div><h2>Badminton.<br>Running.<br>Python.</h2><p>Three different dots. The AI notices sport, movement and technology — then explores the bridges between them.</p><a class="btn-primary" href="#about" style="background:#f4f0e3;color:var(--green);margin-top:10px">Imagine your mix <i class="fa-solid fa-arrow-down"></i></a></div>
+   <div class="demo-board glass"><div class="eyebrow"><span class="pulse"></span> Possible connections</div><div class="demo-tags"><span class="demo-tag">🏸 Badminton</span><span class="demo-tag">🏃 Running</span><span class="demo-tag">⌨ Python</span></div><div class="demo-result">
+    <div class="result"><i class="fa-solid fa-dumbbell"></i><strong>Strength & conditioning</strong><small>A possible bridge between athletic movement and training.</small></div>
+    <div class="result"><i class="fa-solid fa-chart-simple"></i><strong>Sports analytics</strong><small>Use code and data to explore performance patterns.</small></div>
+    <div class="result"><i class="fa-solid fa-person-chalkboard"></i><strong>Performance coaching</strong><small>Explore athlete development and training principles.</small></div>
+    <div class="result"><i class="fa-solid fa-laptop-code"></i><strong>Sports technology</strong><small>Imagine tools that help players learn and improve.</small></div>
+   </div></div>
+  </div>
+  <div class="quote-band glass reveal"><div class="quote-mark">“</div><h2>You don't need to know the destination to take an interesting next step.</h2><p>Connect the dots. Follow the curiosity. Keep the possibilities open.</p></div>
+ </div>
+</section>
+
+<section class="section" id="about">
+ <div class="wrap">
+  <div class="section-head reveal"><div><div class="kicker">04 / Why we're building this</div><h2>Curiosity doesn't follow<br>a straight line.</h2></div><p class="section-desc">People are more than one job title, one subject or one skill. Connect the Dots is designed to help people notice the value in their combinations.</p></div>
+  <div class="bento">
+   <article class="tile glass reveal"><div class="tile-icon"><i class="fa-solid fa-shuffle"></i></div><h3>Not one-size-fits-all.</h3><p>Your map begins with your own mix of interests and abilities.</p></article>
+   <article class="tile glass reveal"><div class="tile-icon"><i class="fa-solid fa-hand-pointer"></i></div><h3>Never forced.</h3><p>AI suggestions are invitations. You decide what belongs in your journey.</p></article>
+   <article class="tile glass tile-maroon reveal"><div class="tile-icon"><i class="fa-solid fa-arrows-rotate"></i></div><h3>Always evolving.</h3><p>Add a new dot and discover how it changes the connections around it.</p></article>
+  </div>
+ </div>
+</section>
+</main>
+<footer class="wrap footer"><div><div class="footer-brand"><i class="fa-solid fa-circle-nodes"></i> connect the dots</div><div style="margin-top:7px">A space for curious minds.</div></div><div class="footer-links"><a href="#idea">The idea</a><a href="#how">How it works</a><a href="#possibilities">Possibilities</a><a href="signin.html">Sign in</a><a href="signup.html">Create account</a><a href="#home">Back to top ↑</a></div><div>© 2026 Connect The Dots</div></footer>
+
+<script>
+const canvas=document.getElementById('neuralCanvas');
+const ctx=canvas.getContext('2d');
+const stage=document.querySelector('.hero-visual');
+let W=0,H=0,particles=[],raf=0,dragged=null,pointer={x:0,y:0,down:false},lastSpawn=0;
+const rand=(a,b)=>Math.random()*(b-a)+a;
+function resizeCanvas(){
+ const rect=canvas.getBoundingClientRect(),dpr=Math.min(window.devicePixelRatio||1,2);
+ W=rect.width;H=rect.height;canvas.width=W*dpr;canvas.height=H*dpr;ctx.setTransform(dpr,0,0,dpr,0,0);
+ const count=Math.max(55,Math.min(105,Math.floor(W*H/3500)));
+ particles=Array.from({length:count},(_,i)=>({x:rand(12,W-12),y:rand(12,H-12),vx:rand(-.42,.42),vy:rand(-.42,.42),r:rand(1.2,2.5),phase:rand(0,6.28),fixed:false}));
+}
+function pointFromEvent(e){const r=canvas.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+function nearestParticle(p){let best=null,bd=22;for(const n of particles){const d=Math.hypot(n.x-p.x,n.y-p.y);if(d<bd){bd=d;best=n}}return best}
+canvas.addEventListener('pointerdown',e=>{
+ const p=pointFromEvent(e);pointer={...p,down:true};
+ dragged=nearestParticle(p);
+ if(dragged){dragged.fixed=true;canvas.setPointerCapture(e.pointerId)}
+ else {particles.push({x:p.x,y:p.y,vx:rand(-.3,.3),vy:rand(-.3,.3),r:3,phase:0,fixed:true});dragged=particles[particles.length-1];canvas.setPointerCapture(e.pointerId)}
+});
+canvas.addEventListener('pointermove',e=>{
+ const p=pointFromEvent(e);pointer.x=p.x;pointer.y=p.y;
+ if(dragged){dragged.x=p.x;dragged.y=p.y}
+});
+function releasePointer(){if(dragged)dragged.fixed=false;dragged=null;pointer.down=false}
+canvas.addEventListener('pointerup',releasePointer);canvas.addEventListener('pointercancel',releasePointer);
+canvas.addEventListener('pointerleave',e=>{if(e.buttons===0)releasePointer()});
+function drawNetwork(t){
+ ctx.clearRect(0,0,W,H);
+ const cx=W/2,cy=H/2;
+ const glow=ctx.createRadialGradient(cx,cy,5,cx,cy,Math.min(W,H)*.48);
+ glow.addColorStop(0,'rgba(103,145,111,.19)');glow.addColorStop(1,'rgba(103,145,111,0)');
+ ctx.fillStyle=glow;ctx.fillRect(0,0,W,H);
+ // Gentle motion gives the network a living, neural feel.
+ particles.forEach((p,i)=>{
+  if(!p.fixed){p.x+=p.vx;p.y+=p.vy;if(p.x<5||p.x>W-5)p.vx*=-1;if(p.y<5||p.y>H-5)p.vy*=-1}
+  // A pointer creates a subtle local ripple / attraction.
+  const pd=Math.hypot(p.x-pointer.x,p.y-pointer.y);
+  if(pointer.down&&pd>12&&pd<130&&!p.fixed){p.vx+=(pointer.x-p.x)*.00013;p.vy+=(pointer.y-p.y)*.00013}
+  p.vx=Math.max(-.8,Math.min(.8,p.vx));p.vy=Math.max(-.8,Math.min(.8,p.vy));
+  for(let j=i+1;j<particles.length;j++){
+   const q=particles[j],d=Math.hypot(p.x-q.x,p.y-q.y);
+   if(d<112){ctx.strokeStyle=`rgba(48,91,66,${(1-d/112)*.28})`;ctx.lineWidth=.7;ctx.beginPath();ctx.moveTo(p.x,p.y);ctx.lineTo(q.x,q.y);ctx.stroke()}
+  }
+  const pulse=(Math.sin(t*.002+p.phase)+1)*.5;
+  ctx.beginPath();ctx.arc(p.x,p.y,p.r+pulse*.65,0,Math.PI*2);
+  ctx.fillStyle=p.fixed?'rgba(130,75,82,.95)':(i%9===0?'rgba(130,75,82,.78)':'rgba(53,100,72,.72)');ctx.fill();
+ });
+ // Pointer-to-node lines make dragging feel like drawing with the network.
+ if(pointer.down){particles.forEach(p=>{const d=Math.hypot(p.x-pointer.x,p.y-pointer.y);if(d<150){ctx.beginPath();ctx.moveTo(pointer.x,pointer.y);ctx.lineTo(p.x,p.y);ctx.strokeStyle=`rgba(130,75,82,${(1-d/150)*.45})`;ctx.lineWidth=1.3;ctx.stroke()}})}
+ for(let k=0;k<8;k++){const a=k*Math.PI*2/8+t*.00014,r=112+Math.sin(t*.001+k)*18,px=cx+Math.cos(a)*r,py=cy+Math.sin(a)*r;ctx.beginPath();ctx.arc(px,py,2.1,0,Math.PI*2);ctx.fillStyle='rgba(130,75,82,.88)';ctx.fill()}
+ raf=requestAnimationFrame(drawNetwork);
+}
+resizeCanvas();drawNetwork(0);window.addEventListener('resize',resizeCanvas);
+
+// A new abstract neural pattern briefly blooms over the page every 10 seconds.
+// It is decorative only: pointer-events are disabled and it never blocks the UI.
+const burstCanvas=document.getElementById('networkBurst');
+const burstCtx=burstCanvas.getContext('2d');
+let burstW=0,burstH=0,burstNodes=[],burstStarted=0,burstActive=false,burstFrame=0;
+const burstDuration=3000;
+function resizeBurst(){
+ const dpr=Math.min(window.devicePixelRatio||1,2);
+ burstW=window.innerWidth;burstH=window.innerHeight;
+ burstCanvas.width=burstW*dpr;burstCanvas.height=burstH*dpr;
+ burstCtx.setTransform(dpr,0,0,dpr,0,0);
+}
+function createBurst(chaotic=false){
+ burstNodes=[];
+ const clusters=chaotic?(4+Math.floor(Math.random()*4)):(2+Math.floor(Math.random()*3));
+ const shapeNames=['spiral','flower','orbit','diamond','wave','constellation'];
+ for(let c=0;c<clusters;c++){
+  const cx=rand(burstW*.12,burstW*.88),cy=rand(burstH*.12,burstH*.88);
+  const count=chaotic?(13+Math.floor(Math.random()*16)):(9+Math.floor(Math.random()*12));
+  const shape=shapeNames[Math.floor(Math.random()*shapeNames.length)];
+  const radius=Math.min(chaotic?245:165,Math.max(70,Math.min(burstW,burstH)*(chaotic?.39:.26)));
+  const twist=rand(0,Math.PI*2);
+  for(let i=0;i<count;i++){
+   const t=i/count,angle=twist+t*Math.PI*2;
+   let x=0,y=0;
+   if(shape==='spiral'){const r=radius*(.12+.88*t);x=Math.cos(angle*2.4)*r;y=Math.sin(angle*2.4)*r}
+   else if(shape==='flower'){const r=radius*(.62+.28*Math.cos(angle*5));x=Math.cos(angle)*r;y=Math.sin(angle)*r}
+   else if(shape==='orbit'){const r=radius*(i%3===0?.95:i%3===1?.62:.3);x=Math.cos(angle)*r;y=Math.sin(angle)*r}
+   else if(shape==='diamond'){const a=t*4;const q=radius/(Math.abs(Math.cos(a))+Math.abs(Math.sin(a)));x=Math.cos(a)*q;y=Math.sin(a)*q}
+   else if(shape==='wave'){x=(t-.5)*radius*2;y=Math.sin(t*Math.PI*5+twist)*radius*.65}
+   else {const a=angle+rand(-.35,.35),r=rand(radius*.15,radius);x=Math.cos(a)*r;y=Math.sin(a)*r}
+   burstNodes.push({
+    x:cx+rand(-burstW*.4,burstW*.4),y:cy+rand(-burstH*.4,burstH*.4),
+    tx:cx+x,ty:cy+y,phase:rand(0,Math.PI*2),
+    speed:rand(chaotic?3.5:.7,chaotic?9:1.4),r:rand(1.6,3.5),cluster:c,shape
+   });
+  }
+ }
+ // A few long cross-links make each composition feel different.
+ burstNodes.forEach((n,i)=>{
+  n.links=[];
+  burstNodes.forEach((m,j)=>{
+   if(i!==j && n.cluster!==m.cluster && Math.random()<.075)n.links.push(j);
+  });
+ });
+ burstStarted=performance.now();burstActive=true;
+ burstCanvas.classList.add('active');
+}
+function paintBurst(now){
+ if(!burstActive)return;
+ const elapsed=now-burstStarted,progress=Math.min(1,elapsed/burstDuration);
+ const appear=Math.min(1,progress*4),disappear=Math.min(1,(1-progress)*3.2);
+ const alpha=appear*disappear;
+ burstCtx.clearRect(0,0,burstW,burstH);
+ burstCtx.save();burstCtx.globalAlpha=alpha;
+ // Soft ambient glow behind the network.
+ burstNodes.forEach((n,i)=>{
+  const drift=Math.sin(now*.003*n.speed+n.phase)*(n.speed>2?42:7);
+  const swirl=Math.cos(now*.0025*n.speed+n.phase)*(n.speed>2?34:7);
+  n.x+=(n.tx+drift-n.x)*(n.speed>2?.16:.035);
+  n.y+=(n.ty+swirl-n.y)*(n.speed>2?.16:.035);
+ });
+ for(let i=0;i<burstNodes.length;i++){
+  const a=burstNodes[i];
+  for(let j=i+1;j<burstNodes.length;j++){
+   const b=burstNodes[j],d=Math.hypot(a.x-b.x,a.y-b.y);
+   if((a.cluster===b.cluster&&d<155)||a.links.includes(j)){
+    const strength=a.cluster===b.cluster?(1-d/155)*.48:.13;
+    burstCtx.beginPath();burstCtx.moveTo(a.x,a.y);burstCtx.lineTo(b.x,b.y);
+    burstCtx.strokeStyle=`rgba(42,91,62,${Math.max(.035,strength)})`;
+    burstCtx.lineWidth=a.cluster===b.cluster?1:1.25;burstCtx.stroke();
+   }
+  }
+ }
+ burstNodes.forEach((n,i)=>{
+  const pulse=(Math.sin(now*.004+n.phase)+1)*.5;
+  burstCtx.beginPath();burstCtx.arc(n.x,n.y,n.r+pulse*1.5,0,Math.PI*2);
+  burstCtx.fillStyle=i%7===0?'rgba(130,75,82,.9)':'rgba(42,91,62,.82)';
+  burstCtx.shadowBlur=12;burstCtx.shadowColor='rgba(80,125,85,.35)';burstCtx.fill();
+ });
+ burstCtx.restore();
+ if(progress>=1){
+  burstActive=false;burstCanvas.classList.remove('active');burstCtx.clearRect(0,0,burstW,burstH);
+ }else{
+  burstFrame=requestAnimationFrame(paintBurst);
+ }
+}
+function scheduleBurst(){
+ if(window.matchMedia('(prefers-reduced-motion: reduce)').matches)return;
+ createBurst();burstFrame=requestAnimationFrame(paintBurst);
+}
+resizeBurst();
+window.addEventListener('resize',resizeBurst);
+if(!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+ window.setTimeout(scheduleBurst,2200);
+ window.setInterval(scheduleBurst,10000);
+}
+
+
+// A flowing dotted "neural snake" follows the pointer across the page.
+const snakeCanvas=document.getElementById('cursorSnake');
+const snakeCtx=snakeCanvas.getContext('2d');
+let snakeW=0,snakeH=0,snakeDpr=1,pointerX=-500,pointerY=-500,snakeVisible=false;
+const snakeDots=Array.from({length:30},(_,i)=>({x:-500,y:-500,phase:i*.34}));
+function resizeSnake(){
+ snakeDpr=Math.min(window.devicePixelRatio||1,2);
+ snakeW=window.innerWidth;snakeH=window.innerHeight;
+ snakeCanvas.width=snakeW*snakeDpr;snakeCanvas.height=snakeH*snakeDpr;
+ snakeCtx.setTransform(snakeDpr,0,0,snakeDpr,0,0);
+}
+window.addEventListener('pointermove',e=>{pointerX=e.clientX;pointerY=e.clientY;snakeVisible=true},{passive:true});
+window.addEventListener('pointerleave',()=>{snakeVisible=false});
+function drawSnake(now){
+ snakeCtx.clearRect(0,0,snakeW,snakeH);
+ if(snakeVisible&&!window.matchMedia('(prefers-reduced-motion: reduce)').matches){
+  snakeDots[0].x+=(pointerX-snakeDots[0].x)*.38;
+  snakeDots[0].y+=(pointerY-snakeDots[0].y)*.38;
+  for(let i=1;i<snakeDots.length;i++){
+   const a=snakeDots[i-1],b=snakeDots[i];
+   b.x+=(a.x-b.x)*.32;b.y+=(a.y-b.y)*.32;
+  }
+  snakeCtx.save();
+  snakeCtx.lineCap='round';snakeCtx.lineJoin='round';
+  snakeCtx.beginPath();
+  snakeDots.forEach((d,i)=>{if(i===0)snakeCtx.moveTo(d.x,d.y);else snakeCtx.lineTo(d.x,d.y)});
+  snakeCtx.strokeStyle='rgba(49,103,71,.28)';snakeCtx.lineWidth=2.2;snakeCtx.stroke();
+  snakeDots.forEach((d,i)=>{
+   const t=1-i/snakeDots.length;
+   const orbit=4+8*t;
+   const wobble=now*.0035+d.phase;
+   const ox=Math.cos(wobble)*orbit,oy=Math.sin(wobble)*orbit;
+   const radius=1.1+t*3.1;
+   snakeCtx.beginPath();snakeCtx.arc(d.x+ox,d.y+oy,radius,0,Math.PI*2);
+   snakeCtx.fillStyle=i%8===0?'rgba(139,78,88,.9)':`rgba(46,103,68,${.22+t*.65})`;
+   snakeCtx.shadowBlur=10*t;snakeCtx.shadowColor='rgba(62,125,82,.5)';snakeCtx.fill();
+  });
+  // Small orbiting diamonds add a little sparkle around the head.
+  for(let k=0;k<4;k++){
+   const a=now*.002+k*Math.PI/2, r=13+Math.sin(now*.004+k)*3;
+   const x=snakeDots[0].x+Math.cos(a)*r,y=snakeDots[0].y+Math.sin(a)*r;
+   snakeCtx.save();snakeCtx.translate(x,y);snakeCtx.rotate(a);
+   snakeCtx.strokeStyle='rgba(133,83,91,.55)';snakeCtx.lineWidth=1;
+   snakeCtx.strokeRect(-2.2,-2.2,4.4,4.4);snakeCtx.restore();
+  }
+  snakeCtx.restore();
+ }
+ requestAnimationFrame(drawSnake);
+}
+resizeSnake();window.addEventListener('resize',resizeSnake);requestAnimationFrame(drawSnake);
+
+const mindBurstButton=document.getElementById('mindBurstButton');
+let mindBurstCooldown=false;
+mindBurstButton?.addEventListener('click',()=>{
+ if(mindBurstCooldown)return;
+ mindBurstCooldown=true;
+ document.body.classList.remove('mind-shake');
+ void document.body.offsetWidth;
+ document.body.classList.add('mind-shake');
+ window.setTimeout(()=>document.body.classList.remove('mind-shake'),1750);
+ burstActive=false;
+ burstCanvas.classList.remove('active');
+ burstCtx.clearRect(0,0,burstW,burstH);
+ createBurst(true);
+ burstFrame=requestAnimationFrame(paintBurst);
+ window.setTimeout(()=>{mindBurstCooldown=false},3200);
+});
+
+
+// DOT STUDIO: visitors can invent their own constellations on a clean white canvas.
+const studio=document.getElementById('dotStudio');
+const studioCtx=studio.getContext('2d');
+const studioWrap=studio.parentElement;
+const studioEmpty=document.getElementById('studioEmpty');
+const dotCounter=document.getElementById('dotCounter');
+let studioW=0,studioH=0,studioDpr=1,studioDots=[],studioLinks=[],studioDrag=null;
+function fitStudio(){
+ const r=studioWrap.getBoundingClientRect();studioW=r.width;studioH=r.height;
+ studioDpr=Math.min(devicePixelRatio||1,2);
+ studio.width=studioW*studioDpr;studio.height=studioH*studioDpr;
+ studioCtx.setTransform(studioDpr,0,0,studioDpr,0,0);drawStudio();
+}
+function drawStudio(){
+ studioCtx.clearRect(0,0,studioW,studioH);
+ // A whisper-light dot grid helps people compose their patterns.
+ studioCtx.fillStyle='rgba(48,91,62,.075)';
+ for(let x=18;x<studioW;x+=24)for(let y=18;y<studioH;y+=24){
+  studioCtx.beginPath();studioCtx.arc(x,y,.8,0,Math.PI*2);studioCtx.fill();
+ }
+ studioLinks.forEach(([a,b])=>{
+  const p=studioDots[a],q=studioDots[b];if(!p||!q)return;
+  studioCtx.beginPath();studioCtx.moveTo(p.x,p.y);studioCtx.lineTo(q.x,q.y);
+  studioCtx.strokeStyle='rgba(49,104,70,.48)';studioCtx.lineWidth=1.6;studioCtx.stroke();
+ });
+ studioDots.forEach((d,i)=>{
+  studioCtx.beginPath();studioCtx.arc(d.x,d.y,d.r||5,0,Math.PI*2);
+  studioCtx.fillStyle=d.color||'#376b4c';studioCtx.shadowBlur=10;studioCtx.shadowColor='rgba(56,105,72,.2)';studioCtx.fill();studioCtx.shadowBlur=0;
+  studioCtx.beginPath();studioCtx.arc(d.x,d.y,1.5,0,Math.PI*2);studioCtx.fillStyle='#fff';studioCtx.fill();
+ });
+ studioEmpty.classList.toggle('hidden',studioDots.length>0);
+ dotCounter.textContent=`${studioDots.length} dots · ${studioLinks.length} connections`;
+}
+function studioPoint(e){const r=studio.getBoundingClientRect();return{x:e.clientX-r.left,y:e.clientY-r.top}}
+function nearestDot(pt,max=20){let best=-1,dist=max;studioDots.forEach((d,i)=>{const v=Math.hypot(d.x-pt.x,d.y-pt.y);if(v<dist){best=i;dist=v}});return best}
+studio.addEventListener('pointerdown',e=>{
+ const pt=studioPoint(e),idx=nearestDot(pt,22);
+ if(idx>=0){studioDrag={from:idx};studio.setPointerCapture(e.pointerId)}
+ else{studioDots.push({...pt,r:5+Math.random()*2,color:Math.random()<.12?'#824b52':'#376b4c'});studioDrag={from:studioDots.length-1};drawStudio()}
+});
+studio.addEventListener('pointerup',e=>{
+ if(!studioDrag)return;
+ const pt=studioPoint(e),to=nearestDot(pt,25),from=studioDrag.from;
+ if(to>=0&&to!==from&&!studioLinks.some(([a,b])=>(a===from&&b===to)||(a===to&&b===from)))studioLinks.push([from,to]);
+ studioDrag=null;drawStudio();
+});
+studio.addEventListener('pointercancel',()=>studioDrag=null);
+document.getElementById('clearDots').addEventListener('click',()=>{studioDots=[];studioLinks=[];drawStudio()});
+document.getElementById('undoDot').addEventListener('click',()=>{
+ if(studioLinks.length)studioLinks.pop();
+ else if(studioDots.length){const gone=studioDots.length-1;studioDots.pop();studioLinks=studioLinks.filter(([a,b])=>a!==gone&&b!==gone)}
+ drawStudio();
+});
+document.getElementById('randomPattern').addEventListener('click',()=>{
+ studioDots=[];studioLinks=[];
+ const shape=['spiral','flower','orbit','star','wave'][Math.floor(Math.random()*5)];
+ const cx=studioW/2,cy=studioH/2,n=shape==='flower'?72:56,r=Math.min(studioW,studioH)*.37;
+ for(let i=0;i<n;i++){
+  const t=i/n,a=t*Math.PI*2;
+  let rr=r;
+  if(shape==='spiral')rr=r*(.08+.92*t);
+  if(shape==='flower')rr=r*(.56+.34*Math.cos(a*6));
+  if(shape==='star')rr=r*(.52+.43*Math.cos(a*5));
+  if(shape==='wave')rr=r*(.65+.25*Math.sin(a*8));
+  if(shape==='orbit')rr=r*(i%2?.96:.53);
+  studioDots.push({x:cx+Math.cos(a)*rr,y:cy+Math.sin(a)*rr,r:3.1,color:i%11===0?'#824b52':'#376b4c'});
+ }
+ // Weave each generated shape with short links and occasional cross-lines.
+ for(let i=0;i<n;i++){studioLinks.push([i,(i+1)%n]);if(i%3===0)studioLinks.push([i,(i+Math.floor(n/2))%n])}
+ drawStudio();
+});
+if(window.ResizeObserver)new ResizeObserver(fitStudio).observe(studioWrap);else window.addEventListener('resize',fitStudio);
+fitStudio();
+
+// NETWORK TRAVEL: internal section links trigger a fast tunnel of moving nodes.
+const travelCanvas=document.getElementById('networkTravel');
+const travelCtx=travelCanvas.getContext('2d');
+let travelW=0,travelH=0,travelDpr=1,travelFrame=0;
+function fitTravel(){travelW=innerWidth;travelH=innerHeight;travelDpr=Math.min(devicePixelRatio||1,2);travelCanvas.width=travelW*travelDpr;travelCanvas.height=travelH*travelDpr;travelCtx.setTransform(travelDpr,0,0,travelDpr,0,0)}
+fitTravel();window.addEventListener('resize',fitTravel);
+function runNetworkTravel(done){
+ cancelAnimationFrame(travelFrame);travelCanvas.classList.add('active');
+ const start=performance.now(),duration=680,particles=Array.from({length:115},()=>({a:Math.random()*Math.PI*2,z:Math.random(),speed:Math.random()*8+7,phase:Math.random()*8}));
+ function frame(now){
+  const t=Math.min(1,(now-start)/duration),cx=travelW/2,cy=travelH/2;
+  travelCtx.clearRect(0,0,travelW,travelH);
+  particles.forEach((p,i)=>{
+   p.z+=p.speed*.012;if(p.z>1.3)p.z=-.1;
+   const spread=20+p.z*p.z*Math.max(travelW,travelH)*.68;
+   const wobble=Math.sin(now*.008+p.phase)*18;
+   const x=cx+Math.cos(p.a)*spread+wobble,y=cy+Math.sin(p.a)*spread;
+   const px=cx+Math.cos(p.a)*(spread-16),py=cy+Math.sin(p.a)*(spread-16);
+   travelCtx.beginPath();travelCtx.moveTo(px,py);travelCtx.lineTo(x,y);
+   travelCtx.strokeStyle=`rgba(48,105,69,${(1-p.z*.45)*(1-t)*.7})`;travelCtx.lineWidth=.6+p.z*1.5;travelCtx.stroke();
+   travelCtx.beginPath();travelCtx.arc(x,y,1+p.z*2,0,Math.PI*2);
+   travelCtx.fillStyle=i%9===0?'rgba(130,75,82,.85)':'rgba(48,105,69,.8)';travelCtx.fill();
+  });
+  if(t<1)travelFrame=requestAnimationFrame(frame);
+  else{travelCanvas.classList.remove('active');travelCtx.clearRect(0,0,travelW,travelH);done?.()}
+ }
+ travelFrame=requestAnimationFrame(frame);
+}
+let travelBusy=false;
+document.addEventListener('click',e=>{
+ const link=e.target.closest('a[href^="#"]');
+ if(!link)return;
+ const target=document.querySelector(link.getAttribute('href'));
+ if(!target)return;
+ e.preventDefault();
+ if(travelBusy){target.scrollIntoView({behavior:'smooth'});return}
+ travelBusy=true;
+ runNetworkTravel(()=>{target.scrollIntoView({behavior:'smooth',block:'start'});history.replaceState(null,'',link.getAttribute('href'));travelBusy=false});
+});
+
+const revealObserver=new IntersectionObserver(entries=>entries.forEach(entry=>{if(entry.isIntersecting){entry.target.classList.add('visible');revealObserver.unobserve(entry.target)}}),{threshold:.12});
+document.querySelectorAll('.reveal').forEach(el=>revealObserver.observe(el));
+const menuBtn=document.getElementById('menuBtn'),navLinks=document.getElementById('navLinks');
+menuBtn.addEventListener('click',()=>navLinks.classList.toggle('open'));
+navLinks.querySelectorAll('a').forEach(a=>a.addEventListener('click',()=>navLinks.classList.remove('open')));
+</script>
+</body>
+</html>

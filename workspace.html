@@ -1,0 +1,206 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width,initial-scale=1">
+<meta name="theme-color" content="#eef2eb">
+<title>My Universe — Connect The Dots</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:wght@400;500;600;700&family=Manrope:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css">
+<style>
+:root{--green:#244b3b;--green2:#47775a;--green3:#78977d;--ink:#20352a;--muted:#839087;--maroon:#824b52;--line:rgba(43,78,57,.12);--glass:rgba(255,255,255,.48);--glass2:rgba(255,255,255,.72);--shadow:0 18px 55px rgba(35,62,43,.09)}
+*{box-sizing:border-box}html,body{height:100%;margin:0}body{font-family:"DM Sans",sans-serif;color:var(--ink);background:radial-gradient(circle at 14% 8%,rgba(204,224,199,.72),transparent 29rem),radial-gradient(circle at 94% 90%,rgba(222,210,196,.65),transparent 30rem),linear-gradient(135deg,#f5f6ef,#e9eee7 55%,#f6f3eb);overflow:hidden}button,input,textarea{font:inherit}button{cursor:pointer}
+.glass{background:linear-gradient(145deg,rgba(255,255,255,.72),rgba(255,255,255,.35));border:1px solid rgba(255,255,255,.82);box-shadow:var(--shadow);backdrop-filter:blur(28px) saturate(150%);-webkit-backdrop-filter:blur(28px) saturate(150%)}
+.app{height:100%;padding:12px;display:grid;grid-template-columns:225px minmax(340px,1fr) 235px;gap:12px}
+.left{border-radius:25px;display:flex;flex-direction:column;min-width:0;overflow:hidden}
+.brand{display:flex;align-items:center;gap:10px;padding:19px 17px 17px;text-decoration:none;color:var(--green);font:800 13px Manrope,sans-serif;letter-spacing:-.3px;border-bottom:1px solid var(--line)}
+.brand-icon{width:34px;height:34px;border-radius:12px;background:linear-gradient(145deg,#477b59,#1d402f);display:grid;place-items:center;color:white;box-shadow:0 7px 17px #244b3b2b}
+.left-head{padding:16px 15px 9px;display:flex;align-items:center;justify-content:space-between}
+.eyebrow{font-size:9px;letter-spacing:1.7px;text-transform:uppercase;color:#929f93;font-weight:800}
+.small-icon{width:28px;height:28px;border:1px solid var(--line);border-radius:9px;background:#ffffff7a;color:#718477}
+.chat-list{padding:0 9px;overflow:auto;flex:1}
+.chat-entry{display:flex;align-items:flex-start;gap:10px;width:100%;border:0;background:transparent;text-align:left;padding:11px 10px;border-radius:12px;color:#637468;transition:.18s}
+.chat-entry:hover,.chat-entry.active{background:rgba(255,255,255,.62);color:var(--green)}
+.chat-entry i{font-size:11px;color:#849b88;margin-top:2px}
+.chat-entry strong{display:block;font-size:10px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis;max-width:165px}
+.chat-entry small{display:block;font-size:8px;color:#9aa59b;margin-top:4px}
+.left-bottom{padding:13px;border-top:1px solid var(--line)}
+.new-chat{width:100%;border:1px solid rgba(36,75,59,.12);background:rgba(255,255,255,.55);color:var(--green);padding:11px 12px;border-radius:13px;text-align:left;font-size:10px;font-weight:700;display:flex;align-items:center;gap:9px}
+.guest{display:flex;align-items:center;gap:9px;padding:14px 4px 2px}
+.avatar{width:29px;height:29px;border-radius:50%;background:linear-gradient(145deg,#d8e5d4,#f0e4df);display:grid;place-items:center;color:var(--green);font-size:11px}
+.guest strong{display:block;font-size:9px}.guest small{font-size:8px;color:var(--muted)}
+.main{border-radius:25px;min-width:0;display:flex;flex-direction:column;overflow:hidden;position:relative}
+.topbar{height:62px;flex-shrink:0;padding:0 20px;display:flex;align-items:center;justify-content:space-between;border-bottom:1px solid rgba(36,75,59,.07);gap:12px}
+.crumbs{display:flex;align-items:center;gap:8px;font-size:10px;color:#98a298;min-width:0}.crumbs b{color:var(--green);font-weight:700}.crumbs button{border:0;background:none;color:var(--green);font-size:10px;padding:0}
+.top-actions{display:flex;align-items:center;gap:7px}
+#logoutBtn{padding:7px 9px;font-size:8px}.backend-status{display:inline-flex;align-items:center;gap:5px;font-size:8px;color:#829087;padding:7px 9px;border:1px solid var(--line);border-radius:10px;background:#ffffff70;white-space:nowrap}.backend-status i{font-size:7px;color:#c18b52}.backend-status.online i{color:#4c9460}
+.action-btn{border:1px solid rgba(36,75,59,.12);background:rgba(255,255,255,.52);color:#64786a;padding:9px 11px;border-radius:11px;font-size:9px;font-weight:700;white-space:nowrap}
+.action-btn.primary{background:var(--green);color:#fff;border-color:var(--green)}
+.action-btn:hover{transform:translateY(-1px)}
+.stage{flex:1;min-height:0;position:relative;display:flex;flex-direction:column}
+.stage-head{padding:17px 21px 10px;display:flex;justify-content:space-between;align-items:flex-start;gap:12px;z-index:2}
+.stage-title{font:800 16px Manrope,sans-serif;letter-spacing:-.5px;margin:0 0 4px}.stage-sub{font-size:9px;color:var(--muted);margin:0}
+.stage-tools{display:flex;gap:6px;align-items:center;flex-wrap:wrap;justify-content:flex-end}
+.select-layout{border:1px solid var(--line);background:rgba(255,255,255,.56);border-radius:10px;padding:8px 9px;font-size:9px;color:var(--green);max-width:150px;outline:none}
+.graph-wrap{position:relative;flex:1;min-height:220px;margin:0 14px 14px;border-radius:20px;overflow:hidden;background:rgba(255,255,255,.36);border:1px solid rgba(255,255,255,.83);box-shadow:inset 0 1px 0 #fff}
+#universeCanvas{position:absolute;inset:0;width:100%;height:100%;touch-action:none;cursor:grab}
+#universeCanvas.dragging{cursor:grabbing}
+.graph-empty{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;flex-direction:column;gap:8px;text-align:center;pointer-events:none;color:#9ba99d}
+.graph-empty i{font-size:26px;color:#91aa94}.graph-empty strong{font:700 13px Manrope,sans-serif;color:#718477}.graph-empty span{font-size:9px;max-width:250px;line-height:1.6}
+.graph-legend{position:absolute;left:15px;bottom:13px;display:flex;gap:12px;align-items:center;padding:8px 10px;border:1px solid #ffffffb0;border-radius:10px;background:#ffffff88;backdrop-filter:blur(12px);font-size:8px;color:#849087;pointer-events:none}
+.legend-dot{width:6px;height:6px;border-radius:50%;display:inline-block;margin-right:5px;background:#47775a}.legend-dot.child{background:#9b7478}
+.graph-help{position:absolute;right:15px;bottom:13px;padding:8px 10px;border-radius:10px;background:#ffffff88;border:1px solid #ffffffb0;color:#89958b;font-size:8px;pointer-events:none}
+.dot-composer{position:absolute;z-index:5;left:50%;bottom:48px;transform:translate(-50%,12px);width:min(360px,calc(100% - 28px));display:flex;gap:7px;padding:8px;border:1px solid #ffffffd9;border-radius:15px;background:rgba(255,255,255,.88);backdrop-filter:blur(18px);box-shadow:0 14px 35px #244b3b18;opacity:0;visibility:hidden;transition:.2s}
+.dot-composer.open{opacity:1;visibility:visible;transform:translate(-50%,0)}
+.dot-composer input{min-width:0;flex:1;border:1px solid #dce6dc;background:#fff;border-radius:10px;padding:10px 11px;font:500 11px Manrope,sans-serif;color:var(--green);outline:none}
+.dot-composer input:focus{border-color:#6f9b78;box-shadow:0 0 0 3px #6f9b7818}
+.dot-composer button{border:0;border-radius:10px;padding:0 13px;background:#244b3b;color:white;font:700 10px Manrope,sans-serif;cursor:pointer}
+.dot-composer .composer-cancel{background:#edf2eb;color:#627567;padding:0 10px}
+@media(max-width:650px){.dot-composer{bottom:42px}.graph-help{display:none}}
+.inspector{position:absolute;z-index:5;top:12px;right:12px;bottom:12px;width:min(315px,calc(100% - 24px));border-radius:20px;padding:17px;display:none;flex-direction:column;overflow:auto;background:rgba(250,252,247,.88);border:1px solid #fff;box-shadow:0 18px 55px rgba(35,62,43,.16);backdrop-filter:blur(30px)}
+.inspector.open{display:flex;animation:slideIn .24s ease}
+@keyframes slideIn{from{opacity:0;transform:translateX(12px)}to{opacity:1;transform:none}}
+.inspector-top{display:flex;align-items:center;justify-content:space-between;margin-bottom:17px}
+.inspector-top small{font-size:8px;letter-spacing:1.5px;text-transform:uppercase;color:#94a094;font-weight:800}
+.close-inspector{border:0;background:#eaf0e7;color:#6c806f;width:28px;height:28px;border-radius:9px}
+.topic-icon{width:44px;height:44px;border-radius:15px;background:linear-gradient(145deg,#e1eddd,#fff);display:grid;place-items:center;color:var(--green);font-size:18px;border:1px solid white;box-shadow:0 7px 18px #244b3b12;margin-bottom:12px}
+.topic-name{font:800 21px Manrope,sans-serif;letter-spacing:-.8px;margin:0 0 6px}
+.topic-meta{font-size:9px;color:#94a094;margin-bottom:15px}
+.field-label{display:block;font-size:8px;font-weight:800;letter-spacing:1.3px;text-transform:uppercase;color:#87958a;margin:13px 0 6px}
+.field-input,.field-area{width:100%;border:1px solid rgba(36,75,59,.11);background:#ffffffa6;border-radius:11px;padding:10px;color:var(--ink);font-size:10px;outline:none}
+.field-area{resize:vertical;min-height:65px;line-height:1.6}
+.field-input:focus,.field-area:focus{border-color:#91b198}
+.topic-btn.danger{background:#fff5f3;color:#984b4b;border:1px solid #efd5d1}.delete-confirm{display:none;margin-top:9px;padding:10px;border:1px solid #efd5d1;border-radius:12px;background:#fff8f6}.delete-confirm.open{display:block}.delete-confirm p{margin:0 0 9px;font-size:10px;line-height:1.5;color:#805454}.delete-confirm-actions{display:flex;gap:7px}.delete-confirm-actions button{flex:1}
+.topic-buttons{display:flex;gap:7px;flex-wrap:wrap;margin-top:12px}
+.topic-btn{border:1px solid var(--line);border-radius:10px;padding:9px 10px;background:#ffffffa6;color:var(--green);font-size:9px;font-weight:700}
+.topic-btn.primary{background:var(--green);color:white}
+.log-head{display:flex;justify-content:space-between;align-items:center;margin-top:19px}
+.log-head b{font:700 11px Manrope,sans-serif}.log-list{display:flex;flex-direction:column;gap:8px;margin-top:9px}
+.log-item{padding:10px;border-radius:11px;background:#ffffff9c;border:1px solid rgba(36,75,59,.07)}
+.log-item strong{font-size:9px;display:block;margin-bottom:4px}.log-item small{font-size:8px;color:#9aa59b}.log-item p{font-size:9px;line-height:1.5;color:#65766a;margin:6px 0 0}
+.nested-note{font-size:9px;line-height:1.6;color:#718276;padding:10px;border-radius:11px;background:#e9f0e5;margin-top:12px}
+.toast{position:absolute;z-index:9;bottom:20px;left:50%;transform:translate(-50%,15px);opacity:0;pointer-events:none;background:#244b3b;color:#fff;padding:10px 14px;border-radius:12px;font-size:9px;box-shadow:0 10px 25px #244b3b30;transition:.25s}
+.toast.show{opacity:1;transform:translate(-50%,0)}
+@media(max-width:900px){.app{grid-template-columns:210px minmax(300px,1fr)}.stage-tools .select-layout{max-width:120px}}
+@media(max-width:650px){body{overflow:auto}.app{height:100dvh;min-height:600px;padding:7px;grid-template-columns:1fr;gap:7px}.left{height:58px;flex-direction:row;align-items:center;border-radius:17px}.brand{padding:8px 12px;border:0;flex:1}.left-head,.chat-list,.left-bottom{display:none}.main{border-radius:18px}.topbar{height:52px;padding:0 12px}.stage-head{padding:13px 13px 8px;flex-direction:column}.stage-tools{justify-content:flex-start}.graph-wrap{margin:0 8px 8px}.graph-help{display:none}.inspector{top:7px;right:7px;bottom:7px}.action-btn{padding:8px}.stage-title{font-size:14px}}
+
+.right{border-radius:25px;padding:18px 13px;display:flex;flex-direction:column;min-width:0;overflow:auto}
+.right-head{display:flex;align-items:center;justify-content:space-between;padding:3px 3px 18px}
+.right-head h2{font:800 15px Manrope,sans-serif;letter-spacing:-.5px;margin:6px 0 0}
+.sparkle{width:32px;height:32px;border-radius:11px;background:#e6eee1;color:var(--green);display:grid;place-items:center}
+.right-new-chat{display:flex;align-items:center;gap:10px;text-align:left;border:1px solid rgba(36,75,59,.12);background:rgba(255,255,255,.65);padding:12px;border-radius:14px;color:var(--green);transition:.2s}
+.right-new-chat:hover{background:#fff;transform:translateY(-2px);box-shadow:0 9px 20px #244b3b12}
+.right-new-chat>i:first-child{width:30px;height:30px;border-radius:10px;background:var(--green);color:#fff;display:grid;place-items:center;font-size:11px}
+.right-new-chat b{display:block;font-size:10px}.right-new-chat small{display:block;font-size:8px;color:var(--muted);margin-top:3px}
+.right-new-chat .arrow{margin-left:auto;color:#9aa69c;font-size:9px}
+.right-section-title{font:800 9px Manrope,sans-serif;letter-spacing:1.1px;text-transform:uppercase;color:#829185;margin:23px 4px 6px}
+.right-intro{font-size:9px;line-height:1.6;color:#98a398;margin:0 4px 10px}
+.suggestions{display:flex;flex-direction:column;gap:7px}
+.suggestion-card{display:flex;align-items:center;gap:9px;width:100%;text-align:left;padding:9px 8px;border:1px solid rgba(255,255,255,.8);border-radius:12px;background:rgba(255,255,255,.39);color:var(--ink);transition:.2s}
+.suggestion-card:hover{background:rgba(255,255,255,.83);transform:translateX(-2px)}
+.suggestion-icon{width:29px;height:29px;flex-shrink:0;border-radius:9px;background:#e6eee1;color:var(--green);display:grid;place-items:center;font-size:11px}
+.suggestion-card:nth-child(2) .suggestion-icon{background:#e9e9f1;color:#68678a}
+.suggestion-card:nth-child(3) .suggestion-icon{background:#f2e8e2;color:var(--maroon)}
+.suggestion-card b{display:block;font-size:9px}.suggestion-card small{display:block;font-size:7.5px;line-height:1.4;color:#95a096;margin-top:3px}
+.add-suggestion{margin-left:auto;color:#8aa08c;font-size:9px;padding:5px}
+.right-bottom{margin-top:auto;padding-top:18px}
+.tip-card{display:flex;gap:9px;padding:11px;border-radius:13px;background:rgba(226,236,222,.65);color:var(--green)}
+.tip-card>i{font-size:13px;margin-top:2px}.tip-card b{font-size:8px}.tip-card p{font-size:8px;line-height:1.5;color:#78887b;margin:4px 0 0}
+.back-link{display:block;margin:15px 4px 0;color:#8b988d;font-size:8px;text-decoration:none}.back-link i{margin-right:5px}
+@media(max-width:1100px){.app{grid-template-columns:190px minmax(300px,1fr) 205px;gap:8px;padding:8px}.right{padding:14px 10px}.right-intro{font-size:8px}}
+@media(max-width:850px){.app{grid-template-columns:68px minmax(280px,1fr) 190px}.left .brand span:last-child,.left-head,.chat-list,.left-bottom{display:none}.left{align-items:center;padding-top:10px}.brand{padding:4px}.right{padding:12px 9px}.right-head h2{font-size:13px}.suggestion-card{gap:6px;padding:8px 6px}}
+@media(max-width:650px){.app{height:100dvh;min-height:600px;padding:7px;grid-template-columns:1fr;grid-template-rows:52px minmax(0,1fr) auto;gap:7px}.left{height:52px;flex-direction:row;justify-content:flex-start;align-items:center;padding:0 10px}.left .brand span:last-child{display:block}.left .brand{padding:4px}.right{max-height:155px;overflow:auto;border-radius:16px;padding:10px}.right-head{padding:0 2px 8px}.right-head h2{display:inline;font-size:12px}.right-head .eyebrow{display:none}.sparkle{width:25px;height:25px}.right-new-chat{padding:8px;margin-bottom:8px}.right-section-title{margin:8px 3px 5px}.right-intro,.right-bottom{display:none}.suggestions{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px}.suggestion-card{padding:7px}.suggestion-card small{display:none}.suggestion-icon{width:24px;height:24px}.main{min-height:0}.stage-head{padding:11px}.graph-wrap{min-height:180px}}
+
+</style>
+</head>
+<body>
+<div class="app">
+ <aside class="left glass">
+  <a class="brand" href="index.html"><span class="brand-icon"><i class="fa-solid fa-circle-nodes"></i></span><span>Connect The Dots</span></a>
+  <div class="left-head"><span class="eyebrow">Messages & explorations</span><button class="small-icon" id="newMessage" title="New message"><i class="fa-solid fa-plus"></i></button></div>
+  <div class="chat-list" id="chatList">
+   <button class="chat-entry active" id="rootHistory"><i class="fa-regular fa-message"></i><span><strong>My first universe</strong><small>Start connecting your interests</small></span></button>
+  </div>
+  <div class="left-bottom">
+   <button class="new-chat" id="newExploration"><i class="fa-solid fa-plus"></i> New exploration</button>
+   <div class="guest"><div class="avatar"><i class="fa-regular fa-user"></i></div><div><strong>Guest explorer</strong><small>Local workspace</small></div></div>
+  </div>
+ </aside>
+ <main class="main glass">
+  <header class="topbar">
+   <div class="crumbs"><button id="rootCrumb">My universe</button><i class="fa-solid fa-chevron-right" style="font-size:8px"></i><b id="crumbCurrent">All topics</b></div>
+   <div class="top-actions">
+    <button class="action-btn" id="logoutBtn" type="button" title="Sign out"><i class="fa-solid fa-right-from-bracket"></i> Sign out</button>
+    <span class="backend-status" id="backendStatus"><i class="fa-solid fa-circle"></i><span>Backend offline</span></span>
+    <button class="action-btn" id="connectMode"><i class="fa-solid fa-link"></i> Connect dots</button>
+    <button class="action-btn primary" id="addTopic"><i class="fa-solid fa-plus"></i> Add a dot</button>
+   </div>
+  </header>
+  <section class="stage">
+   <div class="stage-head">
+    <div><h1 class="stage-title" id="stageTitle">Your universe</h1><p class="stage-sub" id="stageSub">One topic. One dot. Your world grows with every new thing you explore.</p></div>
+    <div class="stage-tools">
+     <select class="select-layout" id="layoutSelect" aria-label="Choose dot arrangement"><option value="free">Free arrangement</option></select>
+     <button class="action-btn" id="shuffleLayout" title="Try a different layout"><i class="fa-solid fa-shuffle"></i> Patterns</button>
+     <button class="action-btn" id="fitGraph" title="Center graph"><i class="fa-solid fa-crosshairs"></i></button>
+    </div>
+   </div>
+   <div class="graph-wrap" id="graphWrap">
+    <canvas id="universeCanvas"></canvas>
+    <div class="graph-empty" id="graphEmpty"><i class="fa-solid fa-circle-nodes"></i><strong>Your universe is waiting</strong><span>Add your first topic. Python, badminton, design, an idea — anything can become a dot.</span></div>
+    <div class="graph-legend"><span><i class="legend-dot"></i> Your topics</span><span><i class="legend-dot child"></i> Nested dots</span></div>
+    <div class="graph-help">Drag to move · click to explore</div>
+    <form class="dot-composer" id="dotComposer"><input id="dotNameInput" type="text" maxlength="48" placeholder="Name your new dot…" autocomplete="off"><button type="submit">Add dot</button><button type="button" class="composer-cancel" id="cancelDotComposer" aria-label="Cancel">×</button></form>
+    <aside class="inspector" id="inspector">
+     <div class="inspector-top"><small>Topic details</small><button class="close-inspector" id="closeInspector"><i class="fa-solid fa-xmark"></i></button></div>
+     <div class="topic-icon" id="topicIcon"><i class="fa-solid fa-circle-nodes"></i></div>
+     <h2 class="topic-name" id="topicName">Topic</h2>
+     <div class="topic-meta" id="topicMeta"></div>
+     <label class="field-label" for="topicDescription">Description</label>
+     <textarea class="field-area" id="topicDescription" placeholder="What is this topic about? What do you want to explore?"></textarea>
+     <div class="topic-buttons">
+      <button class="topic-btn primary" id="saveDescription">Save description</button>
+      <button class="topic-btn" id="openUniverse"><i class="fa-solid fa-circle-nodes"></i> Open dot universe</button>
+      <button class="topic-btn danger" id="deleteDotBtn" type="button"><i class="fa-regular fa-trash-can"></i> Delete dot</button>
+      <div class="delete-confirm" id="deleteConfirm"><p>Delete this dot and its nested universe? This cannot be undone.</p><div class="delete-confirm-actions"><button class="topic-btn" id="cancelDeleteDot" type="button">Cancel</button><button class="topic-btn danger" id="confirmDeleteDot" type="button">Delete permanently</button></div></div>
+     </div>
+     <div class="log-head"><b>Learning timeline</b><span id="logCount" style="font-size:8px;color:#9aa59b">0 entries</span></div>
+     <label class="field-label" for="logTitle">What did you learn?</label>
+     <input class="field-input" id="logTitle" placeholder="e.g. Learned Python lists">
+     <label class="field-label" for="logBody">Notes / progress</label>
+     <textarea class="field-area" id="logBody" placeholder="Add details, links, exercises, LeetCode problems, projects..."></textarea>
+     <button class="topic-btn primary" id="addLog" style="margin-top:9px;width:100%">Add to learning timeline</button>
+     <div class="log-list" id="logList"></div>
+     <div class="nested-note" id="nestedHint">Each topic can hold its own smaller universe. For example, Python can contain libraries, concepts, projects and practice.</div>
+    </aside>
+   </div>
+   <div class="toast" id="toast"></div>
+  </section>
+ </main>
+
+ <aside class="right glass">
+  <div class="right-head">
+   <div><span class="eyebrow">Your next move</span><h2>Explore more</h2></div>
+   <span class="sparkle"><i class="fa-solid fa-wand-magic-sparkles"></i></span>
+  </div>
+  <button class="right-new-chat" id="rightNewChat"><i class="fa-solid fa-plus"></i><span><b>New chat</b><small>Start a fresh universe</small></span><i class="fa-solid fa-arrow-up-right-from-square arrow"></i></button>
+  <div class="right-section-title">Suggestions for you</div>
+  <p class="right-intro">Try a starting point. You can change or ignore any suggestion.</p>
+  <div class="suggestions" id="suggestions">
+   <button class="suggestion-card" data-suggestion="Python"><span class="suggestion-icon"><i class="fa-brands fa-python"></i></span><span><b>Python</b><small>Explore programming and its ecosystem</small></span><i class="fa-solid fa-plus add-suggestion"></i></button>
+   <button class="suggestion-card" data-suggestion="Data Science"><span class="suggestion-icon"><i class="fa-solid fa-chart-line"></i></span><span><b>Data Science</b><small>Connect data, statistics and ideas</small></span><i class="fa-solid fa-plus add-suggestion"></i></button>
+   <button class="suggestion-card" data-suggestion="Creative projects"><span class="suggestion-icon"><i class="fa-regular fa-lightbulb"></i></span><span><b>Creative projects</b><small>Turn interests into things you can build</small></span><i class="fa-solid fa-plus add-suggestion"></i></button>
+   <button class="suggestion-card" data-suggestion="Fitness"><span class="suggestion-icon"><i class="fa-solid fa-dumbbell"></i></span><span><b>Fitness</b><small>Track skills, training and progress</small></span><i class="fa-solid fa-plus add-suggestion"></i></button>
+   <button class="suggestion-card" data-suggestion="Photography"><span class="suggestion-icon"><i class="fa-solid fa-camera"></i></span><span><b>Photography</b><small>Explore visual creativity</small></span><i class="fa-solid fa-plus add-suggestion"></i></button>
+  </div>
+  <div class="right-bottom">
+   <div class="tip-card"><i class="fa-regular fa-compass"></i><div><b>A little reminder</b><p>One dot can lead somewhere unexpected. Start with anything.</p></div></div>
+   <a href="index.html" class="back-link"><i class="fa-solid fa-arrow-left"></i> Back to introduction</a>
+  </div>
+ </aside>
+</div>
+<script src="workspace.js" defer></script>
+</body>
+</html>
