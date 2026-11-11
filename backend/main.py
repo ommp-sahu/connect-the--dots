@@ -309,7 +309,8 @@ def send_verification_email(recipient: str, code: str) -> None:
         data=json.dumps(payload).encode("utf-8"),
         headers={
             "Authorization": f"Bearer {resend_api_key}",
-            "Content-Type": "application/json"
+            "Content-Type": "application/json",
+            "User-Agent":"DotUniverse/1.0",
         },
         method="POST"
     )
