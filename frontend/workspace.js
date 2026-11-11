@@ -1,6 +1,6 @@
 const $=id=>document.getElementById(id);
 
-const API_BASE = 'http://127.0.0.1:8000';
+const API_BASE = 'http://dot-universe.onrender.com';
 let backendOnline = false;
 const AUTH_TOKEN_KEY = 'ctd_access_token';
 const authToken = () => localStorage.getItem(AUTH_TOKEN_KEY);
