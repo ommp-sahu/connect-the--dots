@@ -13,6 +13,9 @@ import hashlib
 import hmac
 import smtplib
 from email.message import EmailMessage
+import json
+import urllib.request
+import urllib.error
 
 
 import jwt
@@ -278,28 +281,60 @@ def hash_verification_code(user_id: str, code: str) -> str:
     return hmac.new(SECRET_KEY.encode("utf-8"), message, hashlib.sha256).hexdigest()
 
 
+
 def send_verification_email(recipient: str, code: str) -> None:
-    if not all([SMTP_HOST, SMTP_USERNAME, SMTP_PASSWORD, SMTP_FROM_EMAIL]):
+
+    resend_api_key = os.getenv("RESEND_API_KEY")
+    resend_from_email = os.getenv("RESEND_FROM_EMAIL")
+
+    if not resend_api_key or not resend_from_email:
         raise HTTPException(
             status_code=503,
-            detail="Email delivery is not configured yet. Set SMTP settings in backend/.env and restart the API.",
+            detail="Resend email settings are not configured."
         )
-    message = EmailMessage()
-    message["Subject"] = "Verify your Connect The Dots email"
-    message["From"] = f"{SMTP_FROM_NAME} <{SMTP_FROM_EMAIL}>"
-    message["To"] = recipient
-    message.set_content(
-        f"Your Connect The Dots verification code is: {code}\\n\\n"
-        f"This code expires in {OTP_MINUTES} minutes. If you did not create this account, ignore this email."
-    )
-    try:
-        with smtplib.SMTP(SMTP_HOST, SMTP_PORT, timeout=15) as server:
-            server.starttls()
-            server.login(SMTP_USERNAME, SMTP_PASSWORD)
-            server.send_message(message)
-    except (OSError, smtplib.SMTPException) as error:
-        raise HTTPException(status_code=502, detail="We could not send the verification email. Check your SMTP settings.") from error
 
+    payload = {
+        "from": resend_from_email,
+        "to": [recipient],
+        "subject": "Verify your Connect The Dots email",
+        "text": (
+            f"Your Connect The Dots verification code is: {code}\n\n"
+            f"This code expires in {OTP_MINUTES} minutes. "
+            "If you did not create this account, ignore this email."
+        )
+    }
+
+    request = urllib.request.Request(
+        "https://api.resend.com/emails",
+        data=json.dumps(payload).encode("utf-8"),
+        headers={
+            "Authorization": f"Bearer {resend_api_key}",
+            "Content-Type": "application/json"
+        },
+        method="POST"
+    )
+
+    try:
+        with urllib.request.urlopen(request, timeout=20) as response:
+            result = json.loads(response.read().decode("utf-8"))
+            print("Resend email sent:", result.get("id"))
+
+    except urllib.error.HTTPError as error:
+        error_body = error.read().decode("utf-8", "replace")
+        print("Resend API error:", error.code, error_body)
+
+        raise HTTPException(
+            status_code=502,
+            detail="Resend could not send the verification email."
+        )
+
+    except Exception as error:
+        print("Email delivery error:", str(error))
+
+        raise HTTPException(
+            status_code=502,
+            detail="Could not send verification email."
+        )
 
 def issue_verification_code(user_id: str, email: str, *, enforce_cooldown: bool = True) -> None:
     now = datetime.now(timezone.utc)
